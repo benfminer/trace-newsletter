@@ -437,11 +437,17 @@ a:hover { border-color: var(--clay); background: var(--clay-soft); }
     width: 13.5rem;
     transform: translateY(-0.35rem);
   }
-  /* A gutter note is out of flow, so it cannot push its section taller. Reserve
-     room at the foot of every editorial column so a low note can never bleed
-     into the band below. */
+  /* A margin note only reads as a note when it sits BESIDE the text it
+     annotates. A trailing note has nothing beside it, so floating it would
+     leave it stranded in dead space at the foot of the section — keep it in
+     the flow instead. */
+  .note:last-child {
+    position: static;
+    width: auto;
+    margin: 2.5rem 0 0;
+    transform: none;
+  }
   .column { padding-bottom: 4rem; }
-  .column:has(.note:last-child) { padding-bottom: 12rem; }
 }
 
 /* dark inset panel — the "this is the part that matters" moment */

@@ -79,7 +79,6 @@ img, svg { max-width: 100%; }
 }
 @media (min-width: 1180px) {
   .column { padding-bottom: 4rem; }
-  .column:has(.note:last-child) { padding-bottom: 12rem; }
 }
 
 /* wider container for interactive modules, which need two columns to breathe */
@@ -301,6 +300,11 @@ a:hover { border-color: var(--coral); background: var(--coral-soft); }
 @media (min-width: 1180px) {
   /* sits in the margin to the right of the reading column, not inside it */
   .note { position: absolute; left: 100%; margin: 0 0 0 .5rem; width: 14.5rem; }
+  /* A margin note only reads as a note when it sits BESIDE the text it
+     annotates. A trailing note has nothing beside it, so floating it would
+     leave it stranded in dead space at the foot of the section — keep it in
+     the flow instead. */
+  .note:last-child { position: static; width: auto; margin: 2.5rem 0 0; }
 }
 
 .panel {
