@@ -686,8 +686,8 @@ select option { color: #111; }
 
 .moves { list-style: none; margin: 1.25rem 0 0; padding: 1.25rem 0 0; border-top: 1px solid rgba(244,241,233,.16); display: grid; gap: 0.7rem; }
 .module--paper .moves { border-top-color: var(--rule); }
-.moves li { display: grid; grid-template-columns: 1.1rem 1fr; gap: 0.7rem; font-size: 0.9375rem; line-height: 1.55; }
-.moves li::before { content: '→'; color: var(--mint); font-weight: 700; }
+.moves li { position: relative; padding-left: 1.8rem; font-size: 0.9375rem; line-height: 1.55; }
+.moves li::before { content: '→'; position: absolute; left: 0; top: 0; width: 1.1rem; color: var(--mint); font-weight: 700; }
 .module--paper .moves li::before { color: var(--clay); }
 
 /* live tally strip for the threshold checker */
