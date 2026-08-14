@@ -679,6 +679,7 @@ select option { color: #111; }
   margin: 0.35rem 0 0.5rem;
   transition: color .3s;
 }
+.module--paper .verdict__tier { color: var(--clay-deep); }
 .verdict__say { font-size: 1rem; line-height: 1.6; color: rgba(244,241,233,.82); margin: 0; }
 .module--paper .verdict__say { color: var(--body); }
 .verdict__say b { color: var(--paper); }
@@ -835,6 +836,212 @@ select option { color: #111; }
 .readout .neg dt { color: #E8734C; }
 
 /* --------------------------------------------------------------------------
+   SPIN profile builder (Issue 02) — four answers in, one goal out
+   -------------------------------------------------------------------------- */
+
+.spin { display: grid; gap: 2.25rem; align-items: start; }
+@media (min-width: 900px) { .spin { grid-template-columns: 1fr 1fr; gap: 3rem; } }
+
+.spinrow { border-top: 1px solid rgba(244,241,233,.16); padding-top: 0.9rem; margin-bottom: 1.6rem; }
+.spinrow:last-child { margin-bottom: 0; }
+.spinrow__k {
+  display: block;
+  font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+  color: rgba(244,241,233,.55);
+}
+.spinrow__k b {
+  font-family: var(--display); font-size: 1.15rem; letter-spacing: 0;
+  color: var(--mint); margin-right: 0.4rem;
+}
+.spinrow__q { display: block; font-size: 0.875rem; color: rgba(244,241,233,.62); margin: 0.15rem 0 0.7rem; }
+
+/* self-check (Issue 03, Week 3) */
+.qlist { display: grid; gap: 0.9rem; }
+.qrow {
+  border-left: 3px solid var(--rule);
+  background: #fff;
+  padding: 0.9rem 1.05rem;
+  transition: border-color .25s var(--ease);
+}
+.qrow.is-yes { border-left-color: #2f7a53; }
+.qrow.is-no { border-left-color: var(--clay); }
+.qrow.is-unsure { border-left-color: var(--stone); }
+.qrow__q { margin: 0 0 0.65rem; font-size: 0.9375rem; line-height: 1.5; color: var(--body); }
+.qrow__q b { color: var(--ink); font-weight: 650; }
+.qrow .seg button { padding: 0.4rem 0.85rem; font-size: 0.75rem; }
+
+/* caseload triage (Issue 03, Week 2) */
+.caseload { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.5rem; counter-reset: none; }
+.caseload li {
+  display: grid; grid-template-columns: 1.9rem 1fr; gap: 0.85rem; align-items: start;
+  padding: 0.8rem 0.95rem;
+  background: rgba(255,255,255,.04);
+  border-left: 3px solid rgba(244,241,233,.2);
+  cursor: pointer;
+  transition: border-color .25s var(--ease), background-color .25s var(--ease);
+}
+.caseload li:hover { background: rgba(255,255,255,.07); }
+.caseload li.is-on { border-left-color: var(--mint); background: rgba(143,231,184,.1); }
+.case__r {
+  font-family: var(--display); font-size: 1.15rem; font-weight: 650;
+  color: rgba(244,241,233,.4); line-height: 1.35;
+}
+.caseload li.is-on .case__r { color: var(--mint); }
+.case__b b { display: block; font-family: var(--display); font-size: 1.05rem; color: var(--paper); font-weight: 600; }
+.case__g { display: block; margin-top: 0.1rem; font-size: 0.875rem; line-height: 1.5; color: rgba(244,241,233,.6); }
+.case__m {
+  grid-column: 2; margin-top: 0.4rem;
+  font-size: 0.625rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+  color: rgba(244,241,233,.45);
+}
+.case__m.is-hot { color: #E8734C; }
+
+/* the chain (Issue 03, Week 1) — four elements that have to connect */
+.chain { list-style: none; margin: 0 0 1.75rem; padding: 0; display: grid; gap: 0; }
+.chain li {
+  position: relative;
+  display: grid; grid-template-columns: 2.1rem 1fr; gap: 0.9rem; align-items: start;
+  padding: 0.9rem 1rem;
+  background: rgba(255,255,255,.04);
+  border-left: 3px solid rgba(244,241,233,.2);
+  transition: opacity .3s var(--ease), border-color .3s var(--ease), background-color .3s var(--ease);
+}
+/* the connector between links */
+.chain li + li { margin-top: 1.15rem; }
+.chain li + li::before {
+  content: ''; position: absolute; left: 1.15rem; top: -1.15rem;
+  width: 2px; height: 1.15rem;
+  background: var(--mint);
+  transition: background-color .3s var(--ease);
+}
+.chain li.is-off + li::before,
+.chain li.is-dead::before { background: repeating-linear-gradient(180deg, #E8734C 0 3px, transparent 3px 6px); }
+.chain__n {
+  display: grid; place-items: center;
+  width: 2.1rem; height: 2.1rem;
+  font-family: var(--display); font-weight: 650; font-size: 1rem;
+  background: rgba(244,241,233,.12); color: rgba(244,241,233,.7);
+  transition: background-color .3s var(--ease), color .3s var(--ease);
+}
+.chain__b b { display: block; font-family: var(--display); font-size: 1.05rem; color: var(--paper); font-weight: 600; }
+.chain__s { display: block; margin-top: 0.15rem; font-size: 0.875rem; line-height: 1.5; color: rgba(244,241,233,.6); }
+.chain li.is-on { border-left-color: var(--mint); }
+.chain li.is-on .chain__n { background: var(--mint); color: var(--ink); }
+.chain li.is-off { border-left-color: #E8734C; background: rgba(232,115,76,.1); }
+.chain li.is-off .chain__n { background: #E8734C; color: var(--ink); }
+/* everything past the first break is still on the page, just not about anyone */
+.chain li.is-dead { opacity: .38; }
+
+.chaintoggles { display: flex; flex-wrap: wrap; gap: .4rem; }
+.chaintoggles .flabel {
+  flex: 0 0 100%;
+  font-size: .6875rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase;
+  color: rgba(244,241,233,.5); margin-bottom: .2rem;
+}
+
+/* two meters (Issue 03) — compliance and usefulness, measured separately */
+.goalline {
+  font-family: var(--display); font-size: 1.15rem; line-height: 1.4;
+  color: var(--paper); margin: 0 0 1.6rem;
+  border-left: 3px solid var(--mint); padding-left: 1rem;
+}
+.goalline b { color: var(--mint); font-weight: 600; }
+
+.meter { margin-bottom: 1.1rem; }
+.meter__top {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 1rem;
+  font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+  color: rgba(244,241,233,.55); margin-bottom: 0.45rem;
+}
+.meter__v { letter-spacing: 0.1em; }
+.meter__v.is-ok { color: var(--mint); }
+.meter__v.is-bad { color: #E8734C; }
+.meter__bar { display: block; height: 10px; background: rgba(255,255,255,.08); }
+.meter__fill { display: block; height: 100%; width: 0; transition: width .45s var(--ease); }
+.meter__fill--c { background: #8C93F2; }
+.meter__fill--u { background: var(--mint); }
+
+/* the conversation runner (Issue 02, Week 2) */
+.askrow { border-top: 1px solid rgba(244,241,233,.16); padding-top: 0.9rem; margin-bottom: 1.5rem; }
+.askrow:last-child { margin-bottom: 0; }
+.askrow__k {
+  display: block; margin-bottom: 0.6rem;
+  font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+  color: rgba(244,241,233,.55);
+}
+.askrow__k b {
+  font-family: var(--display); font-size: 1.15rem; letter-spacing: 0;
+  color: var(--mint); margin-right: 0.4rem;
+}
+.askrow .seg button { text-align: left; }
+/* a chosen question that lands badly should not read as the right answer */
+.askrow.is-dud .seg button[aria-pressed=true] {
+  background: #E8734C; border-color: #E8734C; color: var(--ink);
+}
+.askrow__a {
+  margin: 0.75rem 0 0; padding-left: 1rem;
+  border-left: 3px solid var(--mint);
+  font-family: var(--display); font-size: 1.0625rem; line-height: 1.4;
+  color: var(--paper);
+  opacity: 0; transform: translateY(6px);
+  transition: opacity .35s var(--ease), transform .35s var(--ease);
+}
+.askrow__a:empty { display: none; }
+.askrow__a.is-in { opacity: 1; transform: none; }
+.askrow__a.is-dud { border-left-color: #E8734C; color: rgba(244,241,233,.55); }
+.askrow__a .dim { font-family: var(--sans); font-size: .8125rem; color: rgba(244,241,233,.4); }
+
+/* four-letter profile readout (Issue 02, Week 1) */
+.pgrid { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.5rem; }
+.pgrid li {
+  display: grid; grid-template-columns: 2.1rem 1fr; gap: 0.85rem; align-items: start;
+  padding: 0.8rem 0.9rem;
+  background: rgba(255,255,255,.04);
+  border-left: 3px solid rgba(244,241,233,.2);
+  transition: border-color .3s var(--ease), background-color .3s var(--ease);
+}
+.pgrid__k {
+  font-family: var(--display); font-size: 1.15rem; font-weight: 650;
+  color: rgba(244,241,233,.5); line-height: 1.3;
+  transition: color .3s var(--ease);
+}
+.pgrid__v { font-size: 0.9375rem; line-height: 1.55; color: rgba(244,241,233,.82); }
+.pgrid li.stale .pgrid__v { color: rgba(244,241,233,.5); font-style: italic; }
+.pgrid li.agree { border-left-color: var(--mint); }
+.pgrid li.agree .pgrid__k { color: var(--mint); }
+.pgrid li.clash { border-left-color: #D8A63A; background: rgba(216,166,58,.1); }
+.pgrid li.clash .pgrid__k { color: #D8A63A; }
+
+.spinnote {
+  border-top: 1px solid rgba(244,241,233,.16);
+  margin-top: 2rem; padding-top: 0.9rem;
+  font-size: 0.8125rem; line-height: 1.6; color: rgba(244,241,233,.5);
+}
+.spinnote b { color: rgba(244,241,233,.8); font-weight: 650; }
+
+/* the two goals, side by side in time rather than space */
+.goalcard {
+  border-left: 3px solid var(--k, var(--stone));
+  background: rgba(255,255,255,.04);
+  padding: 1.05rem 1.2rem;
+  margin-bottom: 1rem;
+}
+.goalcard--bad  { --k: #E8734C; }
+.goalcard--good { --k: var(--mint); }
+.goalcard .kicker { margin-bottom: 0.55rem; }
+.goalcard--bad .kicker { color: #E8734C; }
+.goalcard__t {
+  font-family: var(--display); font-size: 1.0625rem; line-height: 1.45;
+  color: var(--paper); margin: 0;
+}
+.goalcard--bad .goalcard__t { color: rgba(244,241,233,.45); font-style: italic; }
+.goalcard__t b { color: var(--mint); font-weight: 600; }
+.goalcard__n { font-size: 0.8125rem; line-height: 1.55; color: rgba(244,241,233,.5); margin: 0.6rem 0 0; }
+
+.module__foot { font-size: 0.8125rem; color: rgba(244,241,233,.45); margin: 1.75rem 0 0; }
+.module--paper .module__foot { color: var(--muted); }
+
+/* --------------------------------------------------------------------------
    Evidence ladder (Week 3)
    -------------------------------------------------------------------------- */
 
@@ -858,6 +1065,169 @@ select option { color: #111; }
 .gapgrid b { display: block; font-family: var(--display); font-size: 1.05rem; color: var(--ink); font-weight: 600; }
 .gapgrid span { font-size: 0.875rem; color: var(--muted); }
 .gapgrid .none b { color: var(--clay); }
+
+/* --------------------------------------------------------------------------
+   The handover schedule (Issue 04) — six responsibilities across four years
+   -------------------------------------------------------------------------- */
+
+/* five years in a row needs smaller buttons than a two-way choice does */
+.seg--yr button { padding: 0.45rem 0.7rem; font-size: 0.75rem; }
+.seg--sm button { padding: 0.5rem 0.8rem; font-size: 0.78125rem; }
+
+/* .readout p (later, more specific) otherwise wins over .readout__code */
+.readout p.readout__code {
+  font-family: var(--display); font-size: clamp(2.5rem, 7vw, 3.5rem);
+  line-height: 0.95; font-weight: 650; letter-spacing: -0.03em;
+  color: var(--mint); margin: 0.3rem 0 0.2rem;
+}
+
+.gantt { display: grid; gap: 0.4rem; margin: 1.5rem 0 0.5rem; }
+.gantt__row { display: grid; gap: 0.25rem; }
+.gantt__k { font-size: 0.78125rem; line-height: 1.35; color: rgba(244,241,233,.6); }
+.gantt__track { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; }
+.gantt__cell {
+  height: 0.55rem;
+  background: rgba(255,255,255,.07);
+  transition: background-color .35s var(--ease);
+}
+.gantt__cell.is-live { background: var(--mint); }
+.gantt__cell.is-none {
+  background: repeating-linear-gradient(135deg, rgba(232,115,76,.5) 0 2px, transparent 2px 5px);
+}
+.gantt__hdr {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px;
+  margin: 0.15rem 0 0;
+  font-size: 0.625rem; font-weight: 700; letter-spacing: .12em;
+  color: rgba(244,241,233,.4);
+}
+
+/* --------------------------------------------------------------------------
+   Capacity x opportunity (Issue 04, Week 1) — and the authorship rows in W3
+   -------------------------------------------------------------------------- */
+
+.caprow { border-top: 1px solid rgba(244,241,233,.16); padding-top: 0.9rem; margin-bottom: 1.35rem; }
+.caprow:last-child { margin-bottom: 0; }
+.caprow__k {
+  display: block; margin-bottom: 0.7rem;
+  font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+  color: rgba(244,241,233,.55);
+}
+.caprow__k b {
+  font-family: var(--display); font-size: 1.15rem; letter-spacing: 0;
+  color: var(--mint); margin-right: 0.4rem;
+}
+.capgrid { display: grid; gap: 0.85rem; }
+@media (min-width: 520px) { .capgrid { grid-template-columns: 1fr 1fr; } }
+.caprow .flabel {
+  display: block; margin-bottom: 0.4rem;
+  font-size: 0.625rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase;
+  color: rgba(244,241,233,.45);
+}
+
+.quad { width: 100%; height: auto; display: block; }
+.quad .qbox { fill: rgba(255,255,255,.03); stroke: rgba(244,241,233,.18); stroke-width: 1; }
+.quad .qmid { stroke: rgba(244,241,233,.14); stroke-width: 1; stroke-dasharray: 3 4; }
+.quad .qlab {
+  fill: rgba(244,241,233,.4);
+  font-family: var(--sans); font-size: 8.5px; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase;
+}
+.quad .qax {
+  fill: rgba(244,241,233,.55);
+  font-family: var(--sans); font-size: 8.5px; font-weight: 700; letter-spacing: .14em;
+}
+.qdot circle {
+  fill: var(--stone); stroke: var(--ink-2); stroke-width: 2;
+  transition: cx .45s var(--ease), cy .45s var(--ease), fill .3s var(--ease);
+}
+.qdot text {
+  fill: var(--ink); font-family: var(--sans); font-size: 8px; font-weight: 700;
+  transition: x .45s var(--ease), y .45s var(--ease);
+}
+.qdot.is-ok circle   { fill: var(--mint); }
+.qdot.is-hot circle  { fill: #8C93F2; }
+.qdot.is-warn circle { fill: #D8A63A; }
+
+/* --------------------------------------------------------------------------
+   Run the meeting (Issue 04, Week 2) — nine moments, one transcript
+   -------------------------------------------------------------------------- */
+
+.mprog { display: flex; gap: 3px; margin-bottom: 1.25rem; }
+.mpip {
+  flex: 1; height: 0.4rem;
+  background: rgba(255,255,255,.08);
+  transition: background-color .3s var(--ease);
+}
+.mpip.is-staff   { background: rgba(244,241,233,.28); }
+.mpip.is-prompt  { background: #D8A63A; }
+.mpip.is-student { background: var(--mint); }
+.mpip.is-now     { background: rgba(140,147,242,.9); }
+
+.mstep { background: rgba(0,0,0,.22); border-top: 2px solid var(--mint); padding: 1.35rem 1.4rem; }
+.mstep__t {
+  font-family: var(--display); font-size: 1.35rem; line-height: 1.2; font-weight: 600;
+  color: var(--paper); margin: 0.35rem 0 0.5rem;
+}
+.mstep__b { font-size: 0.9375rem; line-height: 1.6; color: rgba(244,241,233,.7); margin: 0 0 1.2rem; }
+.mchoices { display: grid; gap: 0.45rem; }
+.mchoices .opt { text-align: left; width: 100%; }
+
+.script { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.5rem; }
+.script li {
+  padding: 0.7rem 0.9rem;
+  background: rgba(255,255,255,.04);
+  border-left: 3px solid rgba(244,241,233,.2);
+}
+.script li.is-prompt  { border-left-color: #D8A63A; }
+.script li.is-student { border-left-color: var(--mint); background: rgba(143,231,184,.09); }
+.script .who {
+  display: block;
+  font-size: 0.625rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase;
+  color: rgba(244,241,233,.45);
+}
+.script li.is-student .who { color: var(--mint); }
+.script .line {
+  display: block; margin-top: 0.15rem;
+  font-family: var(--display); font-size: 1rem; line-height: 1.45;
+  color: var(--paper);
+}
+.script .snote {
+  display: block; margin-top: 0.35rem;
+  font-size: 0.78125rem; line-height: 1.5; color: rgba(244,241,233,.45);
+}
+.script__idle {
+  font-size: 0.9375rem; color: rgba(244,241,233,.42);
+  border: 1px dashed rgba(244,241,233,.2); padding: 1rem 1.1rem; margin: 0;
+}
+
+/* --------------------------------------------------------------------------
+   The One-Pager (Issue 04, Week 3) — four boxes, two possible authors
+   -------------------------------------------------------------------------- */
+
+.pager { background: #fff; padding: 0.9rem; }
+.pager__hd {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 1rem;
+  padding: 0 0.2rem 0.7rem;
+}
+.pager__hd b { font-family: var(--display); font-size: 1.05rem; color: var(--ink); font-weight: 650; }
+.pager__hd span { font-size: 0.6875rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.pager__grid { display: grid; gap: 4px; }
+@media (min-width: 460px) { .pager__grid { grid-template-columns: 1fr 1fr; } }
+.pq { border-top: 4px solid var(--k, var(--stone)); background: var(--paper-2); padding: 0.75rem 0.85rem; }
+.pq--s { --k: #2F7A53; }
+.pq--i { --k: #D8901E; }
+.pq--p { --k: #4A6FA8; }
+.pq--n { --k: #C24C2A; }
+.pq b {
+  display: block; margin-bottom: 0.3rem;
+  font-size: 0.625rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--k);
+}
+.pq p {
+  margin: 0; font-size: 0.8125rem; line-height: 1.5;
+  color: var(--muted); font-style: italic;
+}
+.pq.is-own p { color: var(--ink); font-style: normal; font-weight: 500; }
 
 /* --------------------------------------------------------------------------
    Index / hub page
@@ -895,6 +1265,81 @@ select option { color: #111; }
 .pubhead { display: flex; flex-wrap: wrap; align-items: baseline; gap: .5rem 1rem; }
 .pubhead h2 { font-size: clamp(1.9rem, 4.2vw, 2.7rem); line-height: 1; }
 .pubhead .count { font-size: .75rem; font-weight: 650; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+
+/* --------------------------------------------------------------------------
+   SPEND THE YEAR (Issue 05) — a year of WBL hours, stacked by tier
+   -------------------------------------------------------------------------- */
+
+.hourbar {
+  display: flex; height: 14px; overflow: hidden;
+  background: rgba(255,255,255,.08);
+  margin: 1.5rem 0 .6rem;
+}
+.hourbar__seg { display: block; height: 100%; transition: width .45s var(--ease); }
+.hourbar__empty {
+  display: block; width: 100%; height: 100%;
+  background: repeating-linear-gradient(135deg, rgba(244,241,233,.16) 0 4px, transparent 4px 9px);
+}
+
+/* the four tiers, light to loud — paid is the only one in the accent colour */
+.sw--1 { background: #8C93F2; }
+.sw--2 { background: #D8A63A; }
+.sw--3 { background: #E8734C; }
+.sw--4 { background: var(--mint); }
+
+.hourbar__key {
+  display: flex; flex-wrap: wrap; gap: .35rem 1rem;
+  margin: 0 0 .5rem;
+  font-size: .625rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+  color: rgba(244,241,233,.5);
+}
+.hourbar__key i.sw {
+  display: inline-block; width: .55rem; height: .55rem;
+  margin-right: .4rem; vertical-align: baseline;
+}
+
+/* --------------------------------------------------------------------------
+   SORT ROWS (Issue 05, weeks 1–3) — a question, stacked options, a verdict
+   that opens underneath once the row is answered
+   -------------------------------------------------------------------------- */
+
+.sortrow {
+  border-top: 1px solid rgba(244,241,233,.16);
+  padding-top: .9rem;
+  margin-bottom: 1.6rem;
+  transition: border-color .3s var(--ease);
+}
+.sortrow:last-child { margin-bottom: 0; }
+.sortrow.is-right, .sortrow.is-up { border-top-color: var(--mint); }
+.sortrow.is-wrong, .sortrow.is-flat { border-top-color: #E8734C; }
+.sortrow.is-set { border-top-color: #D8A63A; }
+
+/* options are sentences, not labels — they stack and wrap left-aligned */
+.seg--stack { display: grid; gap: .4rem; }
+.seg--stack button {
+  text-align: left; white-space: normal;
+  line-height: 1.45; padding: .55rem .8rem; font-size: .8125rem;
+}
+
+.sortrow__v {
+  margin: .75rem 0 0;
+  padding-left: .9rem;
+  border-left: 2px solid rgba(244,241,233,.2);
+  font-size: .875rem; line-height: 1.6;
+  color: rgba(244,241,233,.72);
+  opacity: 0; transform: translateY(-4px);
+  transition: opacity .3s var(--ease), transform .3s var(--ease);
+}
+.sortrow__v:empty { display: none; }
+.sortrow__v.is-shown { opacity: 1; transform: none; }
+.sortrow__v.is-ok  { border-left-color: var(--mint); }
+.sortrow__v.is-mid { border-left-color: #D8A63A; }
+.sortrow__v.is-off { border-left-color: #E8734C; }
+.sortrow__v b { color: rgba(244,241,233,.92); font-weight: 650; }
+
+/* the week-2 strip reuses the Issue 04 gantt cells but needs a third state:
+   a setup move is neither a tier gain nor a stall */
+.gantt__cell.is-set { background: #D8A63A; }
 
 /* --------------------------------------------------------------------------
    Motion

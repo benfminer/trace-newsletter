@@ -587,10 +587,201 @@ input[type=text]:focus { outline: none; border-color: var(--coral); }
 }
 .verdictbox.good { background: var(--sage-soft); border-left-color: var(--sage); }
 .verdictbox.warn { background: var(--coral-soft); border-left-color: var(--coral); }
-.verdictbox b { display: block; font-family: var(--display); font-size: 1.15rem; color: var(--ink); margin-bottom: .2rem; }
+/* direct child only — inline <b> inside the body copy must stay inline */
+.verdictbox > b { display: block; font-family: var(--display); font-size: 1.15rem; color: var(--ink); margin-bottom: .2rem; }
 .verdictbox p { font-size: .9375rem; margin: 0; }
 
 .trackerfoot { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; margin-top: 1rem; }
+
+/* --------------------------------------------------------------------------
+   THE FOUR-WEEK FADE (Issue 03)
+   -------------------------------------------------------------------------- */
+
+.fade { display: grid; gap: 2rem; align-items: start; }
+@media (min-width: 900px) { .fade { grid-template-columns: 1fr 1.1fr; gap: 2.5rem; } }
+
+.steps4 { list-style: none; margin: 0; padding: 0; display: grid; gap: .55rem; }
+.steps4 li {
+  --i: 0;
+  display: grid; grid-template-columns: 2.2rem 1fr; gap: .85rem; align-items: center;
+  padding: .85rem 1rem;
+  background: rgba(255,255,255,.06);
+  border-radius: 10px;
+  border-left: 5px solid rgba(251,246,239,.2);
+  transition: background-color .3s var(--ease), border-color .3s var(--ease), opacity .3s var(--ease);
+}
+.steps4 li:nth-child(1) { margin-left: 0; }
+.steps4 li:nth-child(2) { margin-left: 1rem; }
+.steps4 li:nth-child(3) { margin-left: 2rem; }
+.steps4 li:nth-child(4) { margin-left: 3rem; }
+@media (max-width: 560px) { .steps4 li { margin-left: 0 !important; } }
+.s4__n {
+  display: grid; place-items: center;
+  width: 2.2rem; height: 2.2rem; border-radius: 50%;
+  background: rgba(251,246,239,.14); color: rgba(251,246,239,.75);
+  font-family: var(--display); font-weight: 700; font-size: 1rem;
+}
+.steps4 b { display: block; font-family: var(--display); font-size: 1.05rem; color: var(--paper); }
+.steps4 span:not(.s4__n) { display: block; font-size: .875rem; line-height: 1.4; color: rgba(251,246,239,.6); }
+.steps4 li.is-past { opacity: .55; }
+.steps4 li.is-on {
+  background: rgba(255,178,122,.18); border-left-color: var(--apricot); opacity: 1;
+}
+.steps4 li.is-on .s4__n { background: var(--apricot); color: var(--ink); }
+.steps4 li.is-held { border-left-color: var(--coral); }
+
+.fadeout {
+  background: rgba(255,255,255,.06);
+  border-radius: var(--r);
+  padding: clamp(1.3rem, 3.5vw, 1.8rem);
+}
+.fadeout__t {
+  font-family: var(--display); font-size: clamp(1.3rem, 3vw, 1.7rem); font-weight: 700;
+  color: var(--paper); margin: .3rem 0 1.1rem; line-height: 1.1;
+}
+.fadeout dl { margin: 0; display: grid; gap: .9rem; }
+.fadeout dt {
+  font-size: .625rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--apricot); margin-bottom: .2rem;
+}
+.fadeout dd { margin: 0; font-size: .96875rem; line-height: 1.55; color: rgba(251,246,239,.82); }
+.fadebtns { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1.25rem; }
+
+/* --------------------------------------------------------------------------
+   RUN A SHIFT (Issue 02) — real-time tally vs. reconstructed memory
+   -------------------------------------------------------------------------- */
+
+.shift { display: grid; gap: 2rem; align-items: start; }
+@media (min-width: 900px) { .shift { grid-template-columns: 1.15fr 1fr; gap: 2.5rem; } }
+
+.feed {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; gap: .5rem;
+  min-height: 22rem;
+  align-content: start;
+}
+.feed__idle {
+  font-size: .9375rem; color: rgba(251,246,239,.45);
+  border: 2px dashed rgba(251,246,239,.18); border-radius: var(--r);
+  padding: 1.1rem 1.2rem;
+}
+.feed__item {
+  display: grid; grid-template-columns: 3.1rem 1fr; gap: .8rem;
+  background: rgba(255,255,255,.06); border-radius: 10px;
+  border-left: 5px solid rgba(251,246,239,.2);
+  padding: .65rem .9rem;
+  font-size: .9375rem; line-height: 1.45;
+  color: rgba(251,246,239,.85);
+  opacity: 0; transform: translateY(8px);
+  transition: opacity .35s var(--ease), transform .35s var(--ease),
+              border-color .35s var(--ease), background-color .35s var(--ease);
+}
+.feed__item.is-in { opacity: 1; transform: none; }
+.feed__t { font-weight: 700; color: rgba(251,246,239,.5); letter-spacing: .02em; }
+.feed__item.indep { border-left-color: var(--sage); background: rgba(94,144,112,.16); }
+.feed__item.prompted { border-left-color: var(--coral); }
+
+/* the default button is ink-on-cream; on an ink module it disappears */
+.module--dark .btn {
+  background: var(--apricot); border-color: var(--apricot); color: var(--ink);
+}
+.module--dark .btn:hover { background: #fff; border-color: #fff; }
+.module--dark .btn--ghost {
+  background: transparent; border-color: rgba(251,246,239,.35); color: var(--paper);
+}
+.module--dark .btn--ghost:hover { background: rgba(251,246,239,.12); color: var(--paper); }
+
+.tracking {
+  font-family: var(--display); font-size: 1.2rem; font-weight: 600;
+  color: var(--paper); margin: 0 0 1.1rem; line-height: 1.25;
+}
+
+.tickbtn {
+  display: grid; gap: .2rem; place-items: center;
+  width: 100%; padding: 1.5rem 1rem;
+  border-radius: var(--r); cursor: pointer;
+  background: var(--apricot); border: 0; color: var(--ink);
+  font-family: var(--sans);
+}
+.tickbtn:active { transform: scale(.98); }
+.tickbtn__n { font-family: var(--display); font-size: 3.4rem; font-weight: 800; line-height: 1; }
+.tickbtn__l { font-size: .8125rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+.tickbtn.pulse { animation: tickpulse .3s var(--ease); }
+@keyframes tickpulse {
+  0% { box-shadow: 0 0 0 0 rgba(255,178,122,.5); }
+  100% { box-shadow: 0 0 0 18px rgba(255,178,122,0); }
+}
+
+.recall { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.1rem; }
+.recall input[type=range] {
+  -webkit-appearance: none; appearance: none; flex: 1;
+  height: 3px; background: rgba(251,246,239,.25); outline: none;
+}
+.recall input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none;
+  width: 22px; height: 22px; border-radius: 50%;
+  background: var(--apricot); border: 0; cursor: grab;
+}
+.recall input[type=range]::-moz-range-thumb {
+  width: 22px; height: 22px; border-radius: 50%; background: var(--apricot); border: 0;
+}
+.recall__n { font-family: var(--display); font-size: 2rem; font-weight: 700; color: var(--apricot); min-width: 1.6rem; text-align: right; }
+
+.score { display: grid; grid-template-columns: repeat(3, 1fr); gap: .5rem; margin-top: 1.1rem; }
+.score > div {
+  background: rgba(255,255,255,.06); border-radius: 10px;
+  padding: .8rem .6rem; text-align: center;
+}
+.score--true { background: rgba(255,178,122,.18) !important; }
+.score__n { display: block; font-family: var(--display); font-size: 1.9rem; font-weight: 800; color: var(--paper); line-height: 1; }
+.score--true .score__n { color: var(--apricot); }
+.score__l { display: block; margin-top: .3rem; font-size: .6875rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: rgba(251,246,239,.55); }
+
+.module--dark .verdictbox { background: rgba(255,255,255,.07); border-left-color: rgba(251,246,239,.3); }
+.module--dark .verdictbox b { color: var(--paper); }
+.module--dark .verdictbox p { color: rgba(251,246,239,.8); }
+.module--dark .verdictbox.good { background: rgba(94,144,112,.2); border-left-color: var(--sage); }
+.module--dark .verdictbox.warn { background: rgba(221,84,48,.18); border-left-color: var(--coral); }
+.module--dark .verdictbox b + p b { color: var(--apricot); }
+.module--dark .readonly { color: rgba(251,246,239,.5); }
+.module--dark .flabel { color: rgba(251,246,239,.55); }
+
+/* --------------------------------------------------------------------------
+   RUN THE TRIP (Issue 04) — six moments on one community outing
+   -------------------------------------------------------------------------- */
+
+.tripbtns { display: grid; gap: .5rem; }
+
+/* place names ("Entrance", "Register") do not fit the shift feed's time column */
+.feed--wide .feed__item { grid-template-columns: 5.4rem 1fr; }
+/* the choices are sentences, not labels, so they stack and wrap left-aligned */
+.btn--stack {
+  display: block; width: 100%;
+  text-align: left; white-space: normal;
+  line-height: 1.45;
+}
+
+/* --------------------------------------------------------------------------
+   RIDE THE CURVE (Issue 05) — escalation drawn as a line over six moments.
+   Reuses the Issue 03 .chart card; the white panel reads well on the dark
+   module and keeps the line legible without a second palette.
+   -------------------------------------------------------------------------- */
+
+.chart .path { transition: none; }
+.chart .pt { transition: cx .4s var(--ease), cy .4s var(--ease); }
+
+/* the Issue 04 feed reserves 22rem because it is alone in its column; here the
+   chart sits above it, so the reserve becomes a hole */
+.feed--short { min-height: 0; }
+/* phase names ("Acceleration") are longer than Issue 04's place names */
+.feed--short .feed__item { grid-template-columns: 6.6rem 1fr; }
+
+.curvekey {
+  margin: .75rem 0 1.25rem;
+  font-size: .75rem; font-weight: 650; letter-spacing: .06em;
+  color: rgba(251,246,239,.55);
+}
+.curvekey b { color: var(--apricot); font-weight: 700; }
 
 /* --------------------------------------------------------------------------
    Motion
