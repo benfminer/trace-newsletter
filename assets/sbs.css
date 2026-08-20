@@ -992,3 +992,75 @@ section[id] { scroll-margin-top: 3.75rem; }
   color: var(--paper);
 }
 .speech b { color: var(--apricot); font-weight: 700; }
+
+/* --------------------------------------------------------------------------
+   FIND THE HARD STEPS (Issue 08) — one trip written out as a task analysis,
+   with a hard budget of three picks. The budget is the judgment; the domain
+   spread is the mirror. Reuses .verdictbox, .fadebtns, .netnote and .tracking.
+   -------------------------------------------------------------------------- */
+
+.taskwrap { display: grid; gap: 2rem; align-items: start; }
+@media (min-width: 900px) { .taskwrap { grid-template-columns: 1.15fr 1fr; gap: 2.5rem; } }
+
+.tabudget {
+  font-size: .6875rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+  color: rgba(251,246,239,.5); margin: -.5rem 0 .9rem;
+}
+.tabudget b { font-family: var(--display); font-size: 1.1rem; color: var(--apricot); }
+
+.talist { list-style: none; margin: 0; padding: 0; display: grid; gap: .4rem; }
+
+.tastep {
+  display: grid; grid-template-columns: 1.7rem 1fr; gap: .75rem; align-items: start;
+  width: 100%; text-align: left; cursor: pointer;
+  font-family: var(--sans);
+  padding: .6rem .85rem;
+  border-radius: 10px;
+  background: rgba(255,255,255,.06);
+  border: 0; border-left: 5px solid rgba(251,246,239,.2);
+  transition: background-color .2s var(--ease), border-color .2s var(--ease),
+              transform .2s var(--ease), opacity .2s var(--ease);
+}
+.tastep:hover { transform: translateX(3px); }
+.tastep .ta__n {
+  display: grid; place-items: center;
+  width: 1.7rem; height: 1.7rem; border-radius: 50%;
+  background: rgba(251,246,239,.14); color: rgba(251,246,239,.75);
+  font-family: var(--display); font-weight: 700; font-size: .8125rem;
+}
+.tastep b {
+  display: block; font-family: var(--display); font-size: 1rem; font-weight: 700;
+  color: var(--paper); line-height: 1.25; letter-spacing: -.01em;
+}
+.tastep i {
+  display: block; margin-top: .15rem; font-style: normal;
+  font-size: .625rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+  color: rgba(251,246,239,.42);
+}
+.tastep[aria-pressed=true] {
+  background: rgba(255,178,122,.18); border-left-color: var(--apricot);
+}
+.tastep[aria-pressed=true] .ta__n { background: var(--apricot); color: var(--ink); }
+.tastep[aria-pressed=true] i { color: var(--apricot); }
+.tastep.is-flag { border-left-color: var(--coral); background: rgba(221,84,48,.16); }
+.tastep.is-flag i { color: var(--coral); }
+.tastep[disabled] { opacity: .42; cursor: default; }
+.tastep[disabled]:hover { transform: none; }
+
+/* the four skill domains, as a mirror of what the three picks added up to */
+.spread { display: grid; gap: .55rem; margin: 0 0 .25rem; }
+.spread__row { display: grid; grid-template-columns: 6.4rem 1fr auto; gap: .7rem; align-items: center; }
+.spread__l {
+  font-size: .625rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  color: rgba(251,246,239,.5);
+}
+.spread__t { height: 6px; border-radius: 999px; background: rgba(255,255,255,.09); overflow: hidden; }
+.spread__t i { display: block; height: 100%; width: 0; border-radius: 999px; background: var(--apricot); transition: width .4s var(--ease); }
+.spread__n { font-family: var(--display); font-weight: 800; font-size: 1rem; color: var(--paper); }
+
+.taverdict { display: grid; gap: .75rem; margin-top: 1.25rem; }
+.taverdict .verdictbox { margin-top: 0; }
+/* after the reveal the list is frozen but the three picks must stay lit, so
+   the lock is a class rather than [disabled] — which would dim them too */
+.tastep.is-locked { pointer-events: none; }
+.tastep.is-locked:not([aria-pressed=true]):not(.is-flag) { opacity: .4; }

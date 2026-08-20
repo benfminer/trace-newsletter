@@ -1732,3 +1732,233 @@ section[id] { scroll-margin-top: 3.75rem; }
 /* the debrief card sits inside the site card here, so it needs no top rule */
 .jobcard .debrief { margin-top: 1.2rem; }
 .jobcard .debrief p:last-child { margin-bottom: 0; }
+
+/* --------------------------------------------------------------------------
+   DIVIDE THE HOUR (Issue 08) — one sixty-minute IEP, twelve agenda items,
+   three settings each. Rows reuse .sortrow / .spinrow__k / .spinrow__q /
+   .seg--stack, the budget reuses .meter (Issue 03) and the split reuses
+   .buckets. New here: the topic-kind tag above each row, a time fill that can
+   run over, and the family's three questions as a live answered/unanswered
+   list. The three settings are deliberately NOT graded — cutting an item is a
+   defensible move, so the row colours read as three choices, not three marks.
+   -------------------------------------------------------------------------- */
+
+.agkind {
+  display: block; margin-bottom: .3rem;
+  font-size: .5625rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
+  color: rgba(244,241,233,.42);
+}
+.agrow.is-cut   .agkind { color: var(--stone); }
+.agrow.is-brief .agkind { color: #D8A63A; }
+.agrow.is-full  .agkind { color: var(--mint); }
+
+.agrow .spinrow__k b { font-size: 1rem; line-height: 1.35; color: var(--paper); }
+
+/* three settings, three neutral rules */
+.sortrow.is-cut   { border-top-color: var(--stone); }
+.sortrow.is-brief { border-top-color: #D8A63A; }
+.sortrow.is-full  { border-top-color: var(--mint); }
+
+/* the hour, and what happens when it does not fit */
+.meter__fill--time { background: var(--mint); }
+.meter__fill--time.is-over {
+  background: repeating-linear-gradient(135deg, #E8734C 0 4px, rgba(232,115,76,.45) 4px 8px);
+}
+
+/* minutes by topic kind — the split the study measured */
+.buckets li.is-school  .bfill { background: #8C93F2; }
+.buckets li.is-post    .bfill { background: var(--mint); }
+.buckets li.is-process .bfill { background: var(--stone); }
+
+/* the three questions the family brought, before and after the hour */
+.wants { list-style: none; margin: 1.5rem 0 0; padding: 1.25rem 0 0;
+  border-top: 1px solid rgba(244,241,233,.16); display: grid; gap: .8rem; }
+.wants li { display: grid; gap: .2rem; border-left: 2px solid rgba(244,241,233,.2); padding-left: .8rem; }
+.wants .wq { font-family: var(--display); font-size: 1rem; line-height: 1.35; color: var(--paper); }
+.wants .wa { font-size: .8125rem; line-height: 1.5; color: rgba(244,241,233,.55); }
+.wants li.is-full { border-left-color: var(--mint); }
+.wants li.is-full .wa { color: var(--mint); }
+.wants li.is-part { border-left-color: #D8A63A; }
+.wants li.is-none { border-left-color: #E8734C; }
+.wants li.is-none .wa { color: rgba(232,115,76,.92); }
+
+/* the same list sits in the profile card above the tool, with no answers yet */
+.jobcard .wants { margin-top: 1.15rem; padding-top: 1rem; }
+.jobcard .wants .wq { font-size: .9375rem; color: rgba(244,241,233,.85); }
+
+/* DIVIDE THE HOUR (Issue 08, cont.) — twelve agenda labels are sentences, not
+   two-word dimension names, so the uppercase treatment .spinrow__k applies
+   elsewhere is dropped here. The item name is the row's headline. */
+.agrow .spinrow__k { text-transform: none; letter-spacing: 0; }
+.agrow .spinrow__k b { margin-right: 0; }
+.wants li.is-idle .wa { font-style: italic; color: rgba(244,241,233,.4); }
+
+/* --------------------------------------------------------------------------
+   PLACE THE CALL (Issue 08, Week 2) — three pre-meeting contacts, three
+   decisions each. Rows reuse .sortrow / .spinrow__k / .seg--stack, the picker
+   reuses .jobpick, the contact card reuses .jobcard and the running list
+   reuses .jobtally. New here: the four-stop timeline strip above the picker,
+   and the "what the family has, and when" record in the readout. No option is
+   graded as an error — a thin contact is a real choice with a real cost — so
+   the row colours read as three depths, not three marks.
+   -------------------------------------------------------------------------- */
+
+.callline { display: grid; grid-template-columns: repeat(4, 1fr); gap: .3rem; margin: 0 0 1.5rem; }
+.callline div {
+  text-align: center; padding: .55rem .25rem;
+  background: rgba(255,255,255,.05);
+  border-top: 2px solid rgba(244,241,233,.2);
+  font-size: .5625rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  color: rgba(244,241,233,.45);
+  transition: border-color .3s var(--ease), color .3s var(--ease);
+}
+.callline div.on { border-top-color: var(--mint); color: var(--paper); }
+.callline div.thin { border-top-color: #D8A63A; color: rgba(244,241,233,.7); }
+.callline div.hour { border-top-style: dashed; }
+
+/* the decision labels are sentences, not two-word dimension names, so the
+   uppercase treatment .spinrow__k applies elsewhere is dropped here */
+.callrow .spinrow__k { text-transform: none; letter-spacing: 0; }
+.callrow .spinrow__k b { font-size: 1rem; line-height: 1.35; color: var(--paper); margin-right: 0; }
+
+.jobcard--call { border-color: var(--mint); margin-bottom: 1.75rem; }
+
+/* what the family has, and when — the record the sequence builds */
+.knows {
+  margin: 1.15rem 0 0; padding: 1rem 1.1rem;
+  background: rgba(0,0,0,.24);
+  border-left: 2px solid rgba(244,241,233,.2);
+}
+.knows__head {
+  margin: 0 0 .85rem;
+  font-size: .5625rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
+  color: rgba(244,241,233,.45);
+}
+.knows ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .85rem; }
+.knows li { display: grid; gap: .2rem; border-left: 2px solid rgba(244,241,233,.18); padding-left: .8rem; }
+.knows .kw { font-size: .5625rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: rgba(244,241,233,.5); }
+.knows .kv { font-size: .875rem; line-height: 1.55; color: rgba(244,241,233,.85); }
+.knows li.is-none { border-left-color: #E8734C; }
+.knows li.is-none .kv { color: rgba(244,241,233,.5); font-style: italic; }
+.knows li.is-thin { border-left-color: #D8A63A; }
+.knows li.is-ready { border-left-color: var(--mint); }
+.knows li.is-ready .kw { color: var(--mint); }
+
+
+/* --------------------------------------------------------------------------
+   ROUTE THE QUESTION (Issue 08, Week 3) — six family questions, five possible
+   answerers, one call each. Rows reuse .sortrow / .spinrow__k / .spinrow__q /
+   .seg--stack / .sortrow__v; the split reuses .buckets and the closing reads
+   reuse .moves. New here: .qkind (the situation tag above each row), .rqline
+   (the family's words, set as quoted display text rather than body copy), and
+   .roster — the five bodies with a use count, dimmed until one is used. The
+   two bucket rules are deliberately not good/bad: keeping a question is
+   correct twice out of six, so "you answer it" is a colour, not a mark.
+   -------------------------------------------------------------------------- */
+
+.qkind {
+  display: block; margin-bottom: .3rem;
+  font-size: .5625rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
+  color: rgba(244,241,233,.42);
+}
+.rqrow.is-inhouse .qkind { color: #8C93F2; }
+.rqrow.is-outside .qkind { color: var(--mint); }
+
+/* question names are sentences, not two-word dimension labels */
+.rqrow .spinrow__k { text-transform: none; letter-spacing: 0; }
+.rqrow .spinrow__k b { font-size: 1rem; line-height: 1.35; color: var(--paper); margin-right: 0; }
+
+/* the family's own words */
+.rqline {
+  margin: .55rem 0 .85rem;
+  font-family: var(--display); font-size: .9375rem; line-height: 1.45;
+  color: rgba(244,241,233,.8);
+  border-left: 2px solid rgba(244,241,233,.22); padding-left: .8rem;
+}
+
+/* two settings, two neutral rules — neither is a mark */
+.sortrow.is-inhouse { border-top-color: #8C93F2; }
+.sortrow.is-outside { border-top-color: var(--mint); }
+.buckets li.is-inhouse .bfill { background: #8C93F2; }
+.buckets li.is-outside .bfill { background: var(--mint); }
+
+/* who got used, and who never did */
+.roster {
+  list-style: none; margin: 1.1rem 0 0; padding: 1.1rem 0 0;
+  border-top: 1px solid rgba(244,241,233,.16);
+  display: flex; flex-wrap: wrap; gap: .4rem;
+}
+.roster li {
+  display: flex; align-items: baseline; gap: .45rem;
+  padding: .3rem .55rem; border: 1px solid rgba(244,241,233,.18);
+  font-size: .75rem; line-height: 1.2;
+}
+.roster .rk { color: rgba(244,241,233,.75); }
+.roster .rn { font-size: .6875rem; letter-spacing: .1em; color: rgba(244,241,233,.4); }
+.roster li.is-used { border-color: rgba(143,231,184,.5); }
+.roster li.is-used .rk { color: var(--paper); }
+.roster li.is-used .rn { color: var(--mint); }
+.roster li.is-idle .rk { color: rgba(244,241,233,.42); }
+
+/* --------------------------------------------------------------------------
+   WHO DOES IT NEXT TIME (Issue 08, Week 1) — seven jobs one family needs done,
+   three moves each. Rows reuse .sortrow / .spinrow__k / .spinrow__q /
+   .seg--stack and the tally reuses .buckets. New here: the job-kind tag and a
+   two-part ownership bar showing how much of the family's work is still the
+   school's a year from now. The three moves are deliberately NOT graded —
+   doing a job yourself is sometimes the duty, so stone, periwinkle and amber
+   read as three different choices rather than three marks.
+   -------------------------------------------------------------------------- */
+
+.wkind {
+  display: block; margin-bottom: .3rem;
+  font-size: .5625rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
+  color: rgba(244,241,233,.42);
+}
+.wkrow.is-do    .wkind { color: var(--stone); }
+.wkrow.is-coach .wkind { color: #8C93F2; }
+.wkrow.is-teach .wkind { color: #D8A63A; }
+
+/* the job names are sentences, so the uppercase .spinrow__k treatment is off */
+.wkrow .spinrow__k { text-transform: none; letter-spacing: 0; }
+.wkrow .spinrow__k b { font-size: 1rem; line-height: 1.35; color: var(--paper); margin-right: 0; }
+
+/* three moves, three neutral rules */
+.sortrow.is-do    { border-top-color: var(--stone); }
+.sortrow.is-coach { border-top-color: #8C93F2; }
+.sortrow.is-teach { border-top-color: #D8A63A; }
+.sortrow__v.is-do    { border-left-color: var(--stone); }
+.sortrow__v.is-coach { border-left-color: #8C93F2; }
+.sortrow__v.is-teach { border-left-color: #D8A63A; }
+
+/* the same three in the tally */
+.buckets li.is-do    .bfill { background: var(--stone); }
+.buckets li.is-coach .bfill { background: #8C93F2; }
+.buckets li.is-teach .bfill { background: #D8A63A; }
+
+/* what is still yours next year — coached and taught count as theirs, so the
+   right-hand segment spans both of their hues */
+.owns { margin: 1.4rem 0 .4rem; }
+.owns__bar { display: flex; height: 14px; overflow: hidden; background: rgba(255,255,255,.08); }
+.owns__seg, .owns__empty { display: block; height: 100%; width: 0; transition: width .45s var(--ease); }
+.owns__seg--mine { background: var(--stone); }
+.owns__seg--theirs { background: linear-gradient(90deg, #8C93F2, #D8A63A); }
+.owns__empty {
+  background: repeating-linear-gradient(135deg, rgba(244,241,233,.16) 0 4px, transparent 4px 9px);
+}
+.owns__key {
+  display: flex; flex-wrap: wrap; gap: .35rem 1.25rem;
+  margin: .55rem 0 0;
+  font-size: .625rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+  color: rgba(244,241,233,.5);
+}
+.owns__key i.sw {
+  display: inline-block; width: .55rem; height: .55rem;
+  margin-right: .4rem; vertical-align: baseline;
+}
+.owns__key i.sw--mine { background: var(--stone); }
+.owns__key i.sw--theirs { background: linear-gradient(90deg, #8C93F2, #D8A63A); }
+
+/* PLACE THE CALL (Issue 08, Week 2, cont.) — a contact that was made and moved
+   nothing needs its own stop colour, or it reads the same as a thin one. */
+.callline div.weak { border-top-color: #E8734C; color: rgba(244,241,233,.6); }
