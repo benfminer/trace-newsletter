@@ -246,7 +246,9 @@ a:hover { border-color: var(--clay); background: var(--clay-soft); }
   transition: background-color .25s, border-color .25s, transform .25s;
 }
 .rail .label {
-  opacity: 0; transform: translateX(-6px);
+  /* Labelled at rest. Six anonymous dots are not wayfinding, and the rail only
+     renders at >=1440px, where there is room for the words. */
+  opacity: .62; transform: none;
   transition: opacity .25s var(--ease), transform .25s var(--ease);
   white-space: nowrap;
 }
@@ -1458,6 +1460,76 @@ select option { color: #111; }
 .debrief p { margin: 0 0 .55rem; font-size: .875rem; line-height: 1.6; color: rgba(244,241,233,.8); }
 .debrief p:last-child { margin-bottom: 0; }
 .debrief .q { color: var(--mint); font-weight: 650; }
+
+/* --------------------------------------------------------------------------
+   TOP BAR — persistent wayfinding, hides on scroll-down, returns on scroll-up.
+   Default state is VISIBLE and sticky; tm.js only ever adds .is-away, so with
+   scripting off the bar simply stays put. The reading-progress line is the
+   bar's bottom edge rather than a separate fixed element.
+   -------------------------------------------------------------------------- */
+
+.topbar {
+  position: fixed; inset: 0 0 auto 0;
+  z-index: 70;
+  background: var(--ink);
+  transform: translateY(0);
+  transition: transform .28s var(--ease);
+  will-change: transform;
+}
+.topbar.is-away { transform: translateY(-100%); }
+
+.topbar__in {
+  display: flex; align-items: center; gap: .5rem 1rem;
+  max-width: 66rem; margin-inline: auto;
+  padding: .6rem 1.5rem .55rem;
+  font-family: var(--sans);
+  font-size: .6875rem; font-weight: 650;
+  letter-spacing: .14em; text-transform: uppercase;
+}
+
+.topbar a { border: 0; }
+.topbar a:hover { background: none; }
+
+.topbar__pub { color: var(--mint); white-space: nowrap; }
+.topbar__pub:hover { color: var(--paper); }
+
+.topbar__where {
+  color: rgba(244, 241, 233, .48);
+  white-space: nowrap;
+  overflow: hidden; text-overflow: ellipsis;
+}
+
+.topbar__end { margin-left: auto; display: flex; align-items: center; gap: .45rem; }
+
+/* week chips — these do the job the callback bar's 01/02/03 does, above the fold */
+.topbar__wk {
+  display: inline-block;
+  padding: .2rem .42rem;
+  color: rgba(244, 241, 233, .55);
+  border: 1px solid rgba(244, 241, 233, .2);
+  line-height: 1;
+}
+.topbar__wk:hover { color: var(--paper); border-color: rgba(244, 241, 233, .45); }
+.topbar__wk.is-here {
+  color: var(--ink); background: var(--mint); border-color: var(--mint);
+}
+
+.topbar__all { color: rgba(244, 241, 233, .62); white-space: nowrap; }
+.topbar__all:hover { color: var(--paper); }
+
+/* progress rides the bar's bottom edge, so it costs no extra height */
+.topbar__rule { height: 3px; background: rgba(244, 241, 233, .1); }
+.topbar__rule .progress__bar { background: var(--mint); }
+
+/* anchors must clear the bar when the rail or a chip jumps to a section */
+section[id] { scroll-margin-top: 3.75rem; }
+
+@media (max-width: 33rem) {
+  .topbar__in { gap: .4rem .7rem; padding-inline: 1rem; font-size: .625rem; letter-spacing: .1em; }
+  /* the month is the least load-bearing token on a phone */
+  .topbar__where .month { display: none; }
+  .topbar__all .word { display: none; }
+}
 
 /* --------------------------------------------------------------------------
    Motion

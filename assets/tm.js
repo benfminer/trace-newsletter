@@ -129,6 +129,44 @@
     checkRail();
   }
 
+  /* ---- top bar: hide going down, return going up ----------------------- */
+  /* No-ops on pages that have no .topbar. The bar's resting state is visible,
+     so a failure here (or scripting off) leaves it pinned rather than gone. */
+  var topbar = document.querySelector('.topbar');
+  if (topbar && !reduced) {
+    var lastY = Math.max(0, window.scrollY);
+
+    /* No rAF gate here on purpose. A "ticking" flag that only clears inside a
+       rAF callback sticks forever if that callback never runs — which happens
+       whenever the tab is backgrounded mid-scroll — and the bar then stops
+       responding for the rest of the session. This handler only reads scrollY
+       and toggles a class, neither of which forces layout, so per-event is fine. */
+    var onScroll = function () {
+      /* iOS rubber-band reports negative scrollY; clamp so overscroll at the
+         top does not read as "scrolling up" and flap the bar. */
+      var y = Math.max(0, window.scrollY);
+
+      /* Near the top always show — that is where the masthead is, and where a
+         reader is most likely to be looking for a way out. */
+      if (y < 80) { topbar.classList.remove('is-away'); lastY = y; return; }
+
+      /* Ignore sub-pixel and momentum jitter, which is what causes flicker. */
+      if (Math.abs(y - lastY) < 6) return;
+
+      topbar.classList.toggle('is-away', y > lastY);
+      lastY = y;
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    /* A jump to an in-page anchor should not leave the bar hidden over the
+       heading it just landed on. */
+    window.addEventListener('hashchange', function () {
+      topbar.classList.remove('is-away');
+      lastY = Math.max(0, window.scrollY);
+    });
+  }
+
   /* ---- segmented controls: aria-pressed group behaviour ---------------- */
   Array.prototype.forEach.call(document.querySelectorAll('[data-seg]'), function (group) {
     group.addEventListener('click', function (e) {

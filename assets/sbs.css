@@ -173,7 +173,9 @@ a:hover { border-color: var(--coral); background: var(--coral-soft); }
   border: 2px solid var(--rule); border-radius: 50%;
   transition: background-color .25s, border-color .25s, transform .25s;
 }
-.rail .label { opacity: 0; transform: translateX(-6px); transition: opacity .25s var(--ease), transform .25s var(--ease); white-space: nowrap; }
+/* Labelled at rest — six anonymous dots are not wayfinding, and the rail only
+   renders at >=1440px, where there is room for the words. */
+.rail .label { opacity: .62; transform: none; transition: opacity .25s var(--ease), transform .25s var(--ease); white-space: nowrap; }
 .rail a:hover .label, .rail a.is-active .label { opacity: 1; transform: none; }
 .rail a.is-active { color: var(--ink); }
 .rail a.is-active .dot { background: var(--coral); border-color: var(--coral); transform: scale(1.2); }
@@ -759,6 +761,59 @@ input[type=text]:focus { outline: none; border-color: var(--coral); }
   display: block; width: 100%;
   text-align: left; white-space: normal;
   line-height: 1.45;
+}
+
+/* --------------------------------------------------------------------------
+   TOP BAR — same behaviour as the Transition Matters bar, Side by Side palette.
+   Para pages had no above-the-fold navigation at all below 1440px; this is it.
+   Default state is VISIBLE; tm.js only ever adds .is-away.
+   -------------------------------------------------------------------------- */
+
+.topbar {
+  position: fixed; inset: 0 0 auto 0;
+  z-index: 70;
+  background: var(--ink);
+  transform: translateY(0);
+  transition: transform .28s var(--ease);
+  will-change: transform;
+}
+.topbar.is-away { transform: translateY(-100%); }
+
+.topbar__in {
+  display: flex; align-items: center; gap: .5rem 1rem;
+  max-width: 66rem; margin-inline: auto;
+  padding: .6rem 1.5rem .55rem;
+  font-family: var(--sans);
+  font-size: .6875rem; font-weight: 700;
+  letter-spacing: .14em; text-transform: uppercase;
+}
+
+.topbar a { border: 0; }
+.topbar a:hover { background: none; }
+
+.topbar__pub { color: var(--apricot); white-space: nowrap; }
+.topbar__pub:hover { color: var(--paper); }
+
+.topbar__where {
+  color: rgba(251, 246, 239, .48);
+  white-space: nowrap;
+  overflow: hidden; text-overflow: ellipsis;
+}
+
+.topbar__end { margin-left: auto; display: flex; align-items: center; gap: .45rem; }
+
+.topbar__all { color: rgba(251, 246, 239, .62); white-space: nowrap; }
+.topbar__all:hover { color: var(--paper); }
+
+.topbar__rule { height: 3px; background: rgba(251, 246, 239, .1); }
+.topbar__rule .progress__bar { background: var(--apricot); }
+
+section[id] { scroll-margin-top: 3.75rem; }
+
+@media (max-width: 33rem) {
+  .topbar__in { gap: .4rem .7rem; padding-inline: 1rem; font-size: .625rem; letter-spacing: .1em; }
+  .topbar__where .month { display: none; }
+  .topbar__all .word { display: none; }
 }
 
 /* --------------------------------------------------------------------------
