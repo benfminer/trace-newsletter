@@ -908,3 +908,87 @@ section[id] { scroll-margin-top: 3.75rem; }
   .card, .resource, .ladderout, .chart { box-shadow: none; border: 1pt solid #ccc; }
   [data-reveal] { opacity: 1 !important; transform: none !important; }
 }
+
+/* --------------------------------------------------------------------------
+   HOLD THE TURN (Issue 07) — a message composing in real time against a live
+   clock. The board and the message bar are the readout; the clock is the
+   argument. Reuses .fadeout, .verdictbox, .score, .feed and .tripbtns.
+   -------------------------------------------------------------------------- */
+
+.turnwrap { display: grid; gap: 2rem; align-items: start; }
+@media (min-width: 900px) { .turnwrap { grid-template-columns: 1.15fr 1fr; gap: 2.5rem; } }
+
+.device {
+  background: rgba(255,255,255,.06);
+  border: 2px solid rgba(251,246,239,.14);
+  border-radius: var(--r);
+  padding: 1rem;
+}
+
+.msgbar {
+  display: flex; flex-wrap: wrap; align-items: center; gap: .35rem;
+  min-height: 3.3rem;
+  background: rgba(0,0,0,.24); border-radius: 10px;
+  padding: .6rem .7rem; margin-bottom: .8rem;
+}
+.msgbar .w {
+  font-family: var(--display); font-weight: 700; font-size: 1rem;
+  color: var(--ink); background: var(--apricot);
+  border-radius: 6px; padding: .1rem .5rem;
+}
+.msgbar .w.ghost { color: rgba(251,246,239,.3); background: rgba(255,255,255,.06); }
+.msgbar .caret { width: 2px; height: 1.15rem; background: var(--apricot); }
+.msgbar__idle {
+  font-size: .625rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+  color: rgba(251,246,239,.38);
+}
+
+.aacboard { display: grid; grid-template-columns: repeat(4, 1fr); gap: .35rem; }
+.aackey {
+  display: grid; place-items: center; text-align: center;
+  padding: .7rem .2rem; border-radius: 8px;
+  background: rgba(255,255,255,.07); border: 2px solid transparent;
+  font-size: .6875rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+  color: rgba(251,246,239,.55);
+  transition: background-color .2s var(--ease), color .2s var(--ease),
+              border-color .2s var(--ease), transform .2s var(--ease);
+}
+.aackey.is-hit {
+  background: var(--apricot); border-color: var(--apricot); color: var(--ink);
+  transform: scale(1.05);
+}
+
+.clockrow { display: flex; align-items: baseline; gap: .65rem; margin: 1.15rem 0 .4rem; }
+.clock {
+  font-family: var(--display); font-size: 2.6rem; font-weight: 800; line-height: 1;
+  color: var(--paper); font-variant-numeric: tabular-nums;
+}
+.clock.past { color: var(--sage); }
+.clock__l {
+  font-size: .625rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+  color: rgba(251,246,239,.5);
+}
+
+/* the wait bar. no overflow clipping — the 5s mark sits proud of the track */
+.floor { position: relative; height: 8px; border-radius: 999px; background: rgba(255,255,255,.09); }
+.floor i {
+  display: block; height: 100%; width: 0;
+  border-radius: 999px; background: var(--coral);
+  transition: width .1s linear;
+}
+.floor i.past { background: var(--sage); }
+.floor .mark { position: absolute; top: -4px; bottom: -4px; width: 2px; background: rgba(251,246,239,.6); }
+.floorkey {
+  display: flex; justify-content: space-between; margin: .4rem 0 0;
+  font-size: .625rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  color: rgba(251,246,239,.42);
+}
+
+.speech {
+  margin-top: 1rem; padding: .75rem .95rem;
+  background: rgba(94,144,112,.18); border: 2px solid rgba(94,144,112,.55);
+  border-radius: 12px;
+  font-family: var(--display); font-size: 1.1rem; font-weight: 600; line-height: 1.3;
+  color: var(--paper);
+}
+.speech b { color: var(--apricot); font-weight: 700; }

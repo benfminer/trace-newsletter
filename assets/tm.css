@@ -1558,3 +1558,177 @@ section[id] { scroll-margin-top: 3.75rem; }
   .panel, .module, .assign { border: 1pt solid #000; }
   [data-reveal] { opacity: 1 !important; transform: none !important; }
 }
+
+/* --------------------------------------------------------------------------
+   RUN THE JOB ANALYSIS (Issue 07) — one profile, three sites, seven
+   dimensions. Rows reuse .sortrow / .spinrow__k / .seg--stack from Issues
+   05–06; only the profile card, the site picker and the tally are new.
+   -------------------------------------------------------------------------- */
+
+.jobcard {
+  border: 1px solid rgba(244,241,233,.18);
+  padding: clamp(1.15rem, 3vw, 1.6rem);
+  margin-bottom: 2rem;
+}
+.jobcard h3 {
+  font-family: var(--display); font-size: 1.3rem; font-weight: 600;
+  letter-spacing: -0.01em; color: var(--paper);
+  margin: 0.35rem 0 0.5rem;
+}
+.jobcard p { font-size: 0.9375rem; line-height: 1.6; color: rgba(244,241,233,.72); margin: 0; }
+.jobcard dl { margin: 1.1rem 0 0; display: grid; gap: 0.8rem; }
+@media (min-width: 760px) { .jobcard dl { grid-template-columns: 1fr 1fr; gap: 0.9rem 2rem; } }
+.jobcard dt {
+  font-size: 0.625rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--mint); margin-bottom: 0.2rem;
+}
+.jobcard dd { margin: 0; font-size: 0.875rem; line-height: 1.55; color: rgba(244,241,233,.78); }
+.jobcard__foot {
+  margin-top: 1.1rem; padding-top: 0.8rem;
+  border-top: 1px solid rgba(244,241,233,.14);
+  font-size: 0.75rem; line-height: 1.55; color: rgba(244,241,233,.45);
+}
+.jobcard__meta {
+  font-size: 0.6875rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+  color: rgba(244,241,233,.5); margin-bottom: 0.6rem;
+}
+.jobcard--site { border-color: var(--mint); margin-bottom: 1.75rem; }
+.jobcard--empty { border-style: dashed; }
+
+/* the three-site picker sits above the rows, not inside them */
+.jobpick { margin-bottom: 1.5rem; }
+.jobpick button { flex: 1 1 10rem; text-align: left; }
+
+/* the fit / support / break tally reuses .buckets with its own signal fills */
+.buckets li.is-fit   .bfill { background: var(--mint); }
+.buckets li.is-fix   .bfill { background: #D8A63A; }
+.buckets li.is-break .bfill { background: #E8734C; }
+
+/* the divergence line appended to a row verdict when the reader's call and the
+   analysis disagree */
+.sortrow__v i { display: block; margin-top: .45rem; font-style: italic; color: rgba(244,241,233,.58); }
+
+/* running comparison across all three sites */
+.jobtally {
+  list-style: none; margin: 1.5rem 0 0; padding: 1.25rem 0 0;
+  border-top: 1px solid rgba(244,241,233,.16);
+  display: grid; gap: .45rem;
+}
+.jobtally li {
+  display: grid; grid-template-columns: 1fr auto; gap: .3rem .8rem;
+  align-items: baseline; font-size: .8125rem;
+  color: rgba(244,241,233,.5);
+}
+.jobtally .tk { font-weight: 650; }
+.jobtally .tv { font-size: .6875rem; letter-spacing: .06em; text-transform: uppercase; }
+.jobtally li.is-done { color: rgba(244,241,233,.78); }
+.jobtally li.is-on .tk { color: var(--mint); }
+
+/* RUN THE JOB ANALYSIS (Issue 07, cont.) — three site tabs are too wide to sit
+   side by side in the module's left column, so they stack cleanly instead. */
+.jobpick { display: grid; grid-template-columns: 1fr; gap: .4rem; }
+
+/* --------------------------------------------------------------------------
+   WORK THE LIST (Issue 07, Week 1) — step four, nine contacts, three moves.
+   Rows reuse .sortrow / .spinrow__k / .spinrow__q / .seg--stack and the
+   .buckets tally; only the contact-kind tag and the three neutral move
+   colours are new. The move states are deliberately NOT right/wrong — amber,
+   periwinkle and stone read as three different choices, not three grades.
+   -------------------------------------------------------------------------- */
+
+.netkind {
+  display: block; margin-bottom: .3rem;
+  font-size: .5625rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
+  color: rgba(244,241,233,.42);
+}
+.netrow.is-ask   .netkind { color: #D8A63A; }
+.netrow.is-intro .netkind { color: #8C93F2; }
+.netrow.is-skip  .netkind { color: var(--stone); }
+
+.netrow .spinrow__k b { font-size: 1rem; line-height: 1.35; color: var(--paper); }
+
+/* the three move states, on the row rule and on the response */
+.sortrow.is-ask   { border-top-color: #D8A63A; }
+.sortrow.is-intro { border-top-color: #8C93F2; }
+.sortrow.is-skip  { border-top-color: var(--stone); }
+.sortrow__v.is-ask   { border-left-color: #D8A63A; }
+.sortrow__v.is-intro { border-left-color: #8C93F2; }
+.sortrow__v.is-skip  { border-left-color: var(--stone); }
+
+/* the same three colours in the tally */
+.buckets li.is-ask   .bfill { background: #D8A63A; }
+.buckets li.is-intro .bfill { background: #8C93F2; }
+.buckets li.is-skip  .bfill { background: var(--stone); }
+
+/* --------------------------------------------------------------------------
+   DIAGNOSE THE TIER (Issue 07, Week 3) — four situations, one tier call each.
+   The verdict block reuses .sortrow__v from Issue 05 but drops its right/wrong
+   colour signalling: no option here is an error, so every verdict gets the
+   same neutral rule. Only the case card and the tier tally fills are new.
+   -------------------------------------------------------------------------- */
+
+.tiercase {
+  border: 1px solid rgba(244,241,233,.18);
+  padding: clamp(1.1rem, 3vw, 1.5rem);
+  margin-bottom: 1.5rem;
+}
+.tiercase:last-child { margin-bottom: 0; }
+.tiercase.is-called { border-color: rgba(244,241,233,.34); }
+.tiercase__meta {
+  font-size: .6875rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+  color: rgba(244,241,233,.5); margin: 0;
+}
+.tiercase h3 {
+  font-family: var(--display); font-size: 1.15rem; font-weight: 600;
+  letter-spacing: -0.01em; line-height: 1.2; color: var(--paper);
+  margin: .35rem 0 .5rem;
+}
+.tiercase__line {
+  font-size: .9375rem; line-height: 1.6;
+  color: rgba(244,241,233,.72);
+  margin: 0 0 1rem;
+}
+.tiercase .sortrow__v {
+  border-left-color: rgba(244,241,233,.28);
+  margin-top: .9rem;
+}
+
+/* the running tally: depth of tier, not quality of student — one hue, three
+   weights, so the bars cannot be read as a scoreboard */
+.buckets li.is-t1 .bfill { background: rgba(143,231,184,.38); }
+.buckets li.is-t2 .bfill { background: rgba(143,231,184,.66); }
+.buckets li.is-t3 .bfill { background: var(--mint); }
+
+/* --------------------------------------------------------------------------
+   WRITE THE FILE LINE (Issue 07, Week 2) — three debriefed experiences, three
+   documentation fields each. Rows reuse .sortrow / .spinrow__k / .seg--stack,
+   the picker reuses .jobpick, the debrief card reuses .debrief (Issue 06, W3)
+   and the running list reuses .jobtally. Only the record card is new.
+   -------------------------------------------------------------------------- */
+
+.plaafp {
+  margin: 1.15rem 0 0;
+  padding: 1rem 1.1rem;
+  background: rgba(0,0,0,.24);
+  border-left: 2px solid rgba(244,241,233,.2);
+}
+.plaafp__head {
+  margin: 0 0 .85rem;
+  font-size: .5625rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
+  color: rgba(244,241,233,.45);
+}
+.plaafp__empty { margin: 0; font-size: .875rem; color: rgba(244,241,233,.45); font-style: italic; }
+.plaafp dl { margin: 0; display: grid; gap: .8rem; }
+.plaafp dt {
+  font-size: .5625rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--mint); margin-bottom: .25rem;
+}
+.plaafp dd { margin: 0; font-size: .875rem; line-height: 1.55; color: rgba(244,241,233,.85); }
+.plaafp .is-blank dt { color: rgba(244,241,233,.4); }
+.plaafp .is-blank dd { color: rgba(244,241,233,.35); font-style: italic; }
+.plaafp .is-weak dt { color: #E8734C; }
+.plaafp .is-weak dd { color: rgba(244,241,233,.6); }
+
+/* the debrief card sits inside the site card here, so it needs no top rule */
+.jobcard .debrief { margin-top: 1.2rem; }
+.jobcard .debrief p:last-child { margin-bottom: 0; }
