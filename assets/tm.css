@@ -1342,6 +1342,124 @@ select option { color: #111; }
 .gantt__cell.is-set { background: #D8A63A; }
 
 /* --------------------------------------------------------------------------
+   WHICH BUCKET ENDED IT (Issue 06) — four termination categories, tallied
+   -------------------------------------------------------------------------- */
+
+.buckets { display: grid; gap: .55rem; margin: 1.4rem 0 0; padding: 0; list-style: none; }
+.buckets li {
+  display: grid; grid-template-columns: 1fr auto; gap: .3rem .8rem;
+  align-items: baseline;
+  font-size: .8125rem;
+}
+.buckets .bk { font-weight: 650; color: rgba(244,241,233,.82); }
+.buckets .bn { font-size: .6875rem; letter-spacing: .1em; color: rgba(244,241,233,.45); }
+.buckets .bbar {
+  grid-column: 1 / -1;
+  height: 8px; background: rgba(255,255,255,.07); overflow: hidden;
+}
+.buckets .bfill { display: block; height: 100%; width: 0; background: var(--stone); transition: width .45s var(--ease); }
+.buckets li.is-social .bfill { background: var(--mint); }
+.buckets li.is-task   .bfill { background: #E8734C; }
+
+/* the ratio line under the tally */
+.ratio {
+  margin: 1.5rem 0 0; padding-top: .9rem;
+  border-top: 1px solid rgba(244,241,233,.16);
+  font-size: .8125rem; line-height: 1.6; color: rgba(244,241,233,.55);
+}
+.ratio b { color: var(--mint); font-weight: 650; }
+
+/* --------------------------------------------------------------------------
+   SKILL RATER (Issue 06, Week 1) — 22 skills, five levels, a profile
+   -------------------------------------------------------------------------- */
+
+.rater { display: grid; gap: 0; }
+.ratergroup {
+  font-size: .625rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--mint); margin: 1.6rem 0 .6rem; padding-top: .9rem;
+  border-top: 1px solid rgba(244,241,233,.16);
+}
+.ratergroup:first-child { margin-top: 0; padding-top: 0; border-top: 0; }
+
+.raterow {
+  display: grid; grid-template-columns: 1fr auto; gap: .5rem .9rem;
+  align-items: center; padding: .38rem 0;
+}
+.raterow .rk { font-size: .875rem; line-height: 1.35; color: rgba(244,241,233,.8); }
+.raterow.is-rated .rk { color: var(--paper); }
+
+.pips { display: flex; gap: .22rem; flex: none; }
+.pips button {
+  width: 1.85rem; height: 1.85rem; padding: 0;
+  font-family: var(--sans); font-size: .75rem; font-weight: 700;
+  background: transparent; color: rgba(244,241,233,.5);
+  border: 1px solid rgba(244,241,233,.22);
+  cursor: pointer;
+  transition: background-color .16s, color .16s, border-color .16s;
+}
+.pips button:hover { border-color: var(--mint); color: var(--paper); }
+.pips button[aria-pressed=true] { background: var(--mint); border-color: var(--mint); color: var(--ink); }
+.pips button.is-low[aria-pressed=true] { background: #E8734C; border-color: #E8734C; color: var(--ink); }
+
+/* the distribution strip in the readout */
+.dist { display: flex; height: 12px; overflow: hidden; background: rgba(255,255,255,.08); margin: 1.1rem 0 .5rem; }
+.dist span { display: block; height: 100%; transition: width .4s var(--ease); }
+.dist .d1 { background: #E8734C; }
+.dist .d2 { background: #D8A63A; }
+.dist .d3 { background: #8C93F2; }
+.dist .d4 { background: var(--mint); }
+.dist .d5 { background: #FFFFFF; }
+.distkey {
+  display: flex; flex-wrap: wrap; gap: .3rem .9rem; margin: 0 0 .4rem;
+  font-size: .5625rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+  color: rgba(244,241,233,.45);
+}
+.distkey i { display: inline-block; width: .5rem; height: .5rem; margin-right: .35rem; }
+
+/* --------------------------------------------------------------------------
+   LESSON BUILDER (Issue 06, Week 2) — six parts, assembled
+   -------------------------------------------------------------------------- */
+
+.plan { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; counter-reset: pl; }
+.plan li {
+  display: grid; grid-template-columns: 1.6rem 1fr; gap: .9rem;
+  padding: .85rem 0;
+  border-top: 1px solid rgba(244,241,233,.14);
+}
+.plan li:first-child { border-top: 0; padding-top: 0; }
+.plan li::before {
+  counter-increment: pl; content: counter(pl);
+  font-family: var(--display); font-size: 1rem; font-weight: 650;
+  color: var(--mint); line-height: 1.5;
+}
+.plan b { display: block; font-size: .625rem; font-weight: 700; letter-spacing: .18em;
+  text-transform: uppercase; color: rgba(244,241,233,.5); margin-bottom: .2rem; }
+.plan p { margin: 0; font-size: .9375rem; line-height: 1.6; color: rgba(244,241,233,.82); }
+.plan li.is-keep { background: rgba(143,231,184,.06); padding-inline: .7rem; }
+.plan li.is-keep b { color: var(--mint); }
+
+/* --------------------------------------------------------------------------
+   JOB-SITE WEEK (Issue 06, Week 3) — three rules, five days, a debrief
+   -------------------------------------------------------------------------- */
+
+.week5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: .3rem; margin: 1.3rem 0 .5rem; }
+.week5 div {
+  text-align: center; padding: .55rem .2rem;
+  background: rgba(255,255,255,.05);
+  border-top: 2px solid rgba(244,241,233,.2);
+  font-size: .625rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  color: rgba(244,241,233,.5);
+  transition: border-color .3s var(--ease), color .3s var(--ease);
+}
+.week5 div.on { border-top-color: var(--mint); color: var(--paper); }
+.week5 div.on.hard { border-top-color: #E8734C; }
+
+.debrief { margin: 1.35rem 0 0; padding: 1rem 1.1rem; background: rgba(0,0,0,.24); }
+.debrief p { margin: 0 0 .55rem; font-size: .875rem; line-height: 1.6; color: rgba(244,241,233,.8); }
+.debrief p:last-child { margin-bottom: 0; }
+.debrief .q { color: var(--mint); font-weight: 650; }
+
+/* --------------------------------------------------------------------------
    Motion
    -------------------------------------------------------------------------- */
 
