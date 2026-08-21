@@ -1064,3 +1064,94 @@ section[id] { scroll-margin-top: 3.75rem; }
    the lock is a class rather than [disabled] — which would dim them too */
 .tastep.is-locked { pointer-events: none; }
 .tastep.is-locked:not([aria-pressed=true]):not(.is-flag) { opacity: .4; }
+
+
+/* --------------------------------------------------------------------------
+   WHO CARRIES THIS (Issue 09) — six supports, five holders, no answer key.
+   Sits on .module--dark, so every color here is set against the plum ink.
+   Feedback is inline per row rather than in a second column: the rows are
+   long and a sticky detail panel would repeat Issue 08's shape.
+   -------------------------------------------------------------------------- */
+
+.wcgrid { display: grid; gap: .9rem; margin-top: 1.5rem; }
+
+.wcrow {
+  background: rgba(251, 246, 239, .05);
+  border: 1px solid rgba(251, 246, 239, .13);
+  border-radius: var(--r);
+  padding: 1.15rem 1.25rem 1.25rem;
+  transition: background-color .25s var(--ease), border-color .25s var(--ease);
+}
+.wcrow.is-set {
+  background: rgba(251, 246, 239, .08);
+  border-color: rgba(255, 178, 122, .45);
+}
+
+.wcrow__t {
+  font-family: var(--display);
+  font-size: 1.0625rem; font-weight: 700; line-height: 1.35;
+  color: var(--paper);
+  margin: 0 0 .3rem;
+}
+.wcrow__n {
+  display: inline-block; min-width: 1.5rem;
+  color: var(--apricot); font-variant-numeric: tabular-nums;
+}
+.wcrow__s {
+  margin: 0 0 .95rem; padding-left: 1.5rem;
+  font-size: .875rem; line-height: 1.65;
+  color: rgba(251, 246, 239, .58);
+}
+
+.wcopts { display: flex; flex-wrap: wrap; gap: .45rem; padding-left: 1.5rem; }
+.wcopt {
+  font: inherit; font-size: .8125rem; font-weight: 600; line-height: 1.2;
+  cursor: pointer;
+  padding: .5rem .85rem;
+  border-radius: 999px;
+  border: 1px solid rgba(251, 246, 239, .26);
+  background: transparent;
+  color: rgba(251, 246, 239, .8);
+  transition: background-color .18s var(--ease), border-color .18s var(--ease), color .18s var(--ease);
+}
+.wcopt:hover { border-color: var(--apricot); color: var(--paper); }
+.wcopt[aria-pressed=true] {
+  background: var(--apricot);
+  border-color: var(--apricot);
+  color: var(--ink);
+}
+
+.wcfb {
+  margin: 1.1rem 0 0 1.5rem;
+  padding-left: 1rem;
+  border-left: 3px solid var(--apricot);
+  font-size: .9375rem; line-height: 1.7;
+  color: rgba(251, 246, 239, .82);
+}
+.wcfb[hidden] { display: none; }
+.wcfb b { color: var(--paper); }
+.wcfb em { color: rgba(251, 246, 239, .92); }
+
+/* running tally — chips stay legible before anything is assigned */
+.wctally {
+  display: flex; flex-wrap: wrap; gap: .5rem; align-items: center;
+  margin-top: 1.5rem;
+}
+.wcchip {
+  font-size: .78125rem; font-weight: 600; letter-spacing: .01em;
+  padding: .35rem .7rem; border-radius: 999px;
+  border: 1px solid rgba(251, 246, 239, .16);
+  color: rgba(251, 246, 239, .5);
+  transition: color .2s var(--ease), border-color .2s var(--ease);
+}
+.wcchip b { color: rgba(251, 246, 239, .7); font-variant-numeric: tabular-nums; }
+.wcchip.is-on { color: var(--paper); border-color: rgba(255, 178, 122, .5); }
+.wcchip.is-on b { color: var(--apricot); }
+.wcleft { font-size: .8125rem; color: rgba(251, 246, 239, .45); margin-left: .25rem; }
+.wcleft b { color: rgba(251, 246, 239, .7); }
+
+@media (max-width: 520px) {
+  .wcrow__s, .wcopts { padding-left: 0; }
+  .wcfb { margin-left: 0; }
+  .wcopt { flex: 1 1 auto; }
+}

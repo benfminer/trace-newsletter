@@ -1962,3 +1962,235 @@ section[id] { scroll-margin-top: 3.75rem; }
 /* PLACE THE CALL (Issue 08, Week 2, cont.) — a contact that was made and moved
    nothing needs its own stop colour, or it reads the same as a thin one. */
 .callline div.weak { border-top-color: #E8734C; color: rgba(244,241,233,.6); }
+
+
+/* --------------------------------------------------------------------------
+   RATE THE PARTNERSHIP (Issue 09) — CTI's Interagency Collaboration
+   Assessment: seven dimensions, four maturity stages each. Rows reuse
+   .sortrow / .spinrow__k / .spinrow__q / .seg--stack, and the stage
+   distribution reuses .buckets. New here: a stage tag above each row and one
+   four-step color ramp (undeveloped -> well-developed) shared by the row rule,
+   the response rule and the tally fills, so a stage reads the same in all
+   three places. The ramp is a sequence, not a set of marks — the bottom rung
+   is a starting point in this instrument, not a failure.
+   -------------------------------------------------------------------------- */
+
+.dimtag {
+  display: block; margin-bottom: .3rem;
+  font-size: .5625rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
+  color: rgba(244,241,233,.42);
+}
+.dimrow.is-s0 .dimtag { color: #E8734C; }
+.dimrow.is-s1 .dimtag { color: #D8A63A; }
+.dimrow.is-s2 .dimtag { color: #8C93F2; }
+.dimrow.is-s3 .dimtag { color: var(--mint); }
+
+.sortrow.is-s0 { border-top-color: #E8734C; }
+.sortrow.is-s1 { border-top-color: #D8A63A; }
+.sortrow.is-s2 { border-top-color: #8C93F2; }
+.sortrow.is-s3 { border-top-color: var(--mint); }
+
+.sortrow__v.is-s0 { border-left-color: #E8734C; }
+.sortrow__v.is-s1 { border-left-color: #D8A63A; }
+.sortrow__v.is-s2 { border-left-color: #8C93F2; }
+.sortrow__v.is-s3 { border-left-color: var(--mint); }
+
+.buckets li.is-s0 .bfill { background: #E8734C; }
+.buckets li.is-s1 .bfill { background: #D8A63A; }
+.buckets li.is-s2 .bfill { background: #8C93F2; }
+.buckets li.is-s3 .bfill { background: var(--mint); }
+
+/* the stage name leads each option, so the button needs a two-weight line */
+.dimrow .seg--stack button b { color: var(--paper); font-weight: 650; }
+.dimrow .seg--stack button[aria-pressed=true] b { color: var(--ink); }
+
+
+/* --------------------------------------------------------------------------
+   READ THE CALENDAR (Issue 09, Week 1) — three settings (birth month, program
+   status, DOR connection) read against 9 CCR 7026.5. The pickers reuse
+   .spinrow / .spinrow__k / .spinrow__q / .seg--stack; new here are a twelve-up
+   month grid, a confirmation line under a set picker, and the three-row band
+   strip that lights the subsection actually in play. The strip stays visible
+   in all three statuses on purpose — the regulation is the same document
+   whether or not it reaches this student, and the dimmed rows are the point.
+   -------------------------------------------------------------------------- */
+
+.caltag {
+  display: block; margin-bottom: .3rem;
+  font-size: .5625rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
+  color: rgba(244,241,233,.42);
+}
+.calrow.is-set .caltag { color: var(--mint); }
+.calrow.is-set { border-top-color: var(--mint); }
+
+/* the question labels are sentences, not keys */
+.calrow .spinrow__k { text-transform: none; letter-spacing: 0; }
+.calrow .spinrow__k b { font-size: 1rem; line-height: 1.35; color: var(--paper); margin-right: 0; }
+
+/* twelve months need a grid, not a wrapping flex row */
+.seg--mo { display: grid; grid-template-columns: repeat(4, 1fr); gap: .35rem; }
+@media (min-width: 560px) { .seg--mo { grid-template-columns: repeat(6, 1fr); } }
+.seg--mo button { padding: .5rem .25rem; font-size: .75rem; text-align: center; }
+
+.calpicked {
+  margin: .7rem 0 0; padding-left: .9rem;
+  border-left: 2px solid var(--mint);
+  font-size: .8125rem; line-height: 1.5;
+  color: rgba(244,241,233,.78);
+}
+
+/* the three subsections of 9 CCR 7026.5(a), with the live one lit */
+.calband { list-style: none; margin: 1.3rem 0 0; padding: 0; display: grid; gap: .5rem; }
+.calband li {
+  border-left: 3px solid rgba(244,241,233,.16);
+  padding: .45rem 0 .45rem .85rem;
+  font-size: .8125rem; line-height: 1.5;
+  color: rgba(244,241,233,.5);
+  transition: color .3s var(--ease), border-color .3s var(--ease), opacity .3s var(--ease);
+}
+.calband li .cb {
+  display: block; margin-bottom: .18rem;
+  font-size: .5625rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
+  color: rgba(244,241,233,.4);
+}
+.calband li.is-off { opacity: .5; }
+.calband li.is-on {
+  opacity: 1; color: rgba(244,241,233,.9); border-left-color: var(--mint);
+}
+.calband li.is-on .cb { color: var(--mint); }
+
+/* the weekly's footer teaser line, above the legal line */
+.foot__tease {
+  margin: 2rem 0 .6rem;
+  font-size: .9375rem; line-height: 1.6;
+  color: var(--body);
+  max-width: 34rem;
+}
+.foot__tease::before {
+  content: ''; display: block; width: 2.25rem; height: 2px;
+  background: var(--clay); margin-bottom: .9rem;
+}
+
+
+/* --------------------------------------------------------------------------
+   AUDIT THE INVITATION (Issue 09, Week 2) — one invitation to a DOR
+   transition counselor, reconstructed as five record fields. Rows reuse
+   .sortrow / .spinrow__k / .seg--stack / .sortrow__v and their existing
+   three-state ramp, so nothing new is needed for the decision column. New
+   here: .docline, the composed file entry that rebuilds itself as choices
+   are made (a record, so it reads as fixed-width lines rather than prose),
+   and .finds, three per-finding reads that borrow .knows' left-rule states
+   but stack the label above a full-width value. Also .foot__teaser for the
+   weekly's "Next week:" line above the footer legal text.
+   -------------------------------------------------------------------------- */
+
+.foot__teaser {
+  margin: 1.75rem 0 .4rem;
+  font-size: 0.9375rem; line-height: 1.6; color: var(--muted);
+  max-width: 34rem;
+}
+.foot__teaser b { color: var(--ink); font-weight: 650; }
+
+/* the composed file entry ---------------------------------------------- */
+
+.docline {
+  margin: 1.15rem 0 0; padding: 1rem 1.1rem;
+  background: rgba(0,0,0,.28);
+  border-left: 2px solid rgba(244,241,233,.2);
+}
+.docline__head {
+  margin: 0 0 .8rem;
+  font-size: .5625rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
+  color: rgba(244,241,233,.45);
+}
+.docline__empty {
+  margin: 0; font-size: .875rem; line-height: 1.55; font-style: italic;
+  color: rgba(244,241,233,.45);
+}
+.docline__rows { list-style: none; margin: 0; padding: 0; display: grid; gap: .4rem; }
+.docline__rows li {
+  padding-left: .7rem;
+  border-left: 2px solid rgba(244,241,233,.18);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: .78125rem; line-height: 1.5;
+  color: rgba(244,241,233,.86);
+}
+.docline__rows li.is-blank { color: rgba(244,241,233,.34); }
+.docline__rows li.is-off { border-left-color: #E8734C; }
+.docline__rows li.is-mid { border-left-color: #D8A63A; }
+.docline__rows li.is-ok  { border-left-color: var(--mint); }
+
+/* the three findings ---------------------------------------------------- */
+
+.finds { list-style: none; margin: 1.15rem 0 0; padding: 0; display: grid; gap: .9rem; }
+.finds li {
+  display: grid; gap: .25rem;
+  border-left: 2px solid rgba(244,241,233,.18);
+  padding-left: .8rem;
+}
+.finds .fk {
+  font-size: .5625rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
+  color: rgba(244,241,233,.5);
+}
+.finds .fv { font-size: .875rem; line-height: 1.6; color: rgba(244,241,233,.85); }
+.finds li.is-none { border-left-color: #E8734C; }
+.finds li.is-none .fv { color: rgba(244,241,233,.62); }
+.finds li.is-thin { border-left-color: #D8A63A; }
+.finds li.is-ready { border-left-color: var(--mint); }
+.finds li.is-ready .fk { color: var(--mint); }
+
+/* the five decision labels are sentences, not tags, so they need room */
+.auditrow .spinrow__k { display: block; margin-bottom: .5rem; }
+
+
+/* --------------------------------------------------------------------------
+   MAP THE FIVE (Issue 09, Week 3) — the five Pre-ETS categories against the
+   four bodies that could be delivering them. Rows reuse .sortrow /
+   .spinrow__k / .spinrow__q / .seg--stack / .sortrow__v, the tally reuses
+   .buckets and the four bodies reuse .roster from Issue 08 Week 3. New here:
+   .mfkind (category tag plus a live count of deliverers) and a three-state
+   ramp that is deliberately NOT a good/bad scale — one deliverer is the
+   ordinary case, a blank row is a service owed and undelivered, and a shared
+   row is a question rather than a fault. The buttons are multi-select, so the
+   pressed state has to be legible on two of them at once; the exclusive
+   "nobody" option is separated from the four bodies by a rule.
+   -------------------------------------------------------------------------- */
+
+.mfkind {
+  display: block; margin-bottom: .3rem;
+  font-size: .5625rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
+  color: rgba(244,241,233,.42);
+}
+.mfrow.is-gap    .mfkind { color: #E8734C; }
+.mfrow.is-held   .mfkind { color: var(--mint); }
+.mfrow.is-shared .mfkind { color: #D8A63A; }
+
+/* category names are sentences, not two-word labels */
+.mfrow .spinrow__k { text-transform: none; letter-spacing: 0; }
+.mfrow .spinrow__k b { font-size: 1rem; line-height: 1.35; color: var(--paper); margin-right: 0; }
+
+/* three states, three rules — a blank row and a shared row are different
+   findings, not different grades */
+.sortrow.is-gap    { border-top-color: #E8734C; }
+.sortrow.is-held   { border-top-color: var(--mint); }
+.sortrow.is-shared { border-top-color: #D8A63A; }
+
+.sortrow__v.is-gap    { border-left-color: #E8734C; }
+.sortrow__v.is-held   { border-left-color: var(--mint); }
+.sortrow__v.is-shared { border-left-color: #D8A63A; }
+
+.buckets li.is-gap    .bfill { background: #E8734C; }
+.buckets li.is-held   .bfill { background: var(--mint); }
+.buckets li.is-shared .bfill { background: #D8A63A; }
+
+/* the exclusive "nobody" option sits apart from the four bodies */
+.mfrow .seg--stack button:last-child {
+  margin-top: .3rem;
+  border-top: 1px solid rgba(244,241,233,.18);
+  font-style: italic;
+}
+
+/* MAP THE FIVE (Issue 09, Week 3, cont.) — the exclusive "nobody" option reads
+   better as a dashed variant of the same button than as a rule drawn above it;
+   border-style only, so the pressed state keeps its own colour. */
+.mfrow .seg--stack button:last-child { border-style: dashed; }
