@@ -1155,3 +1155,175 @@ section[id] { scroll-margin-top: 3.75rem; }
   .wcfb { margin-left: 0; }
   .wcopt { flex: 1 1 auto; }
 }
+
+/* --------------------------------------------------------------------------
+   READ IT COLD (Issue 10) — judging received text from the receiver's seat
+   -------------------------------------------------------------------------- */
+
+.rcstack { display: grid; gap: 1.1rem; }
+
+.rcrow {
+  background: rgba(255, 255, 255, .05);
+  border: 1px solid rgba(251, 246, 239, .12);
+  border-radius: var(--r);
+  padding: 1.2rem 1.3rem 1.35rem;
+  transition: border-color .2s var(--ease), background-color .2s var(--ease);
+}
+.rcrow.is-set { border-color: rgba(255, 178, 122, .45); background: rgba(255, 255, 255, .07); }
+
+.rclabel {
+  margin: 0 0 .7rem;
+  font-size: .6875rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+  color: rgba(251, 246, 239, .45);
+}
+
+/* the received text itself — a document quotation, not the page's own voice */
+.rcquote {
+  margin: 0 0 1.15rem;
+  padding: .95rem 1.1rem;
+  border-left: 4px solid var(--apricot);
+  border-radius: 0 10px 10px 0;
+  background: rgba(255, 178, 122, .1);
+  font-family: var(--display);
+  font-size: 1.0625rem; font-weight: 500; line-height: 1.55;
+  color: var(--paper);
+}
+
+.rcopts { display: grid; gap: .45rem; }
+@media (min-width: 860px) { .rcopts { grid-template-columns: repeat(3, 1fr); } }
+
+.rcopt {
+  font: inherit; font-size: .8125rem; font-weight: 600; line-height: 1.35;
+  text-align: left; cursor: pointer;
+  padding: .7rem .9rem;
+  border-radius: 10px;
+  border: 1px solid rgba(251, 246, 239, .26);
+  background: transparent;
+  color: rgba(251, 246, 239, .8);
+  transition: background-color .18s var(--ease), border-color .18s var(--ease), color .18s var(--ease);
+}
+.rcopt:hover { border-color: var(--apricot); color: var(--paper); }
+.rcopt[aria-pressed=true] {
+  background: var(--apricot); border-color: var(--apricot); color: var(--ink);
+}
+
+.rcfb {
+  margin: 1.15rem 0 0;
+  padding-left: 1rem;
+  border-left: 3px solid var(--apricot);
+  font-size: .9375rem; line-height: 1.7;
+  color: rgba(251, 246, 239, .82);
+}
+.rcfb[hidden] { display: none; }
+.rcfb b { color: var(--paper); }
+.rcfb em { color: rgba(251, 246, 239, .92); }
+
+.rcstate { margin-top: 1.4rem; }
+.rcleft { font-size: .8125rem; color: rgba(251, 246, 239, .45); }
+.rcleft b { color: var(--apricot); font-variant-numeric: tabular-nums; }
+
+.rcfoot {
+  font-size: .8125rem; line-height: 1.6;
+  color: rgba(251, 246, 239, .45);
+  margin-top: 1.5rem; max-width: 44rem;
+}
+
+/* the retrospective list — ten issues, nine of them links */
+.yearlist a { color: inherit; text-decoration-color: var(--apricot); }
+.yearlist a:hover { color: var(--coral-deep); }
+
+/* --------------------------------------------------------------------------
+   THE SENTENCE THAT TRAVELS (Issue 10) — the reader types; nothing persists
+   -------------------------------------------------------------------------- */
+
+.stbox {
+  background: rgba(255, 255, 255, .05);
+  border: 1px solid rgba(251, 246, 239, .14);
+  border-radius: var(--r);
+  padding: 1.4rem 1.4rem 1.5rem;
+  max-width: 46rem;
+}
+
+/* the no-storage promise is part of the tool, not fine print under it */
+.stprivacy {
+  display: grid; grid-template-columns: 1.6rem 1fr; gap: .8rem;
+  background: rgba(94, 144, 112, .18);
+  border-left: 3px solid var(--sage);
+  border-radius: 0 10px 10px 0;
+  padding: .85rem 1rem;
+  margin-bottom: 1.3rem;
+}
+.stlock { font-size: 1rem; line-height: 1.5; }
+.stprivacy p {
+  margin: 0; font-size: .875rem; line-height: 1.65;
+  color: rgba(251, 246, 239, .82);
+}
+.stprivacy b { color: var(--paper); }
+
+.stlabel {
+  display: block; margin-bottom: .5rem;
+  font-size: .6875rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+  color: rgba(251, 246, 239, .5);
+}
+
+.stinput {
+  display: block; width: 100%;
+  font-family: var(--sans); font-size: 1rem; line-height: 1.65;
+  color: var(--paper);
+  background: rgba(36, 28, 46, .35);
+  border: 1px solid rgba(251, 246, 239, .28);
+  border-radius: 10px;
+  padding: .85rem 1rem;
+  resize: vertical;
+  transition: border-color .18s var(--ease);
+}
+.stinput:focus { outline: none; border-color: var(--apricot); }
+.stinput::placeholder { color: rgba(251, 246, 239, .35); }
+
+.stmeta {
+  display: flex; flex-wrap: wrap; gap: .9rem; align-items: baseline;
+  margin: .55rem 0 1.1rem;
+  font-size: .75rem;
+  color: rgba(251, 246, 239, .45);
+}
+.stcount { font-variant-numeric: tabular-nums; }
+.stnote { letter-spacing: .06em; text-transform: uppercase; font-weight: 700; font-size: .6875rem; }
+
+.stout:empty { display: none; }
+.stresult { display: grid; gap: .7rem; margin-top: 1.4rem; }
+
+.stcheck {
+  display: grid; grid-template-columns: 1.5rem 1fr; gap: .75rem;
+  padding: .9rem 1rem;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, .06);
+  border-left: 3px solid rgba(251, 246, 239, .25);
+}
+.stcheck b { display: block; color: var(--paper); font-size: .9375rem; line-height: 1.45; }
+.stcheck p {
+  margin: .35rem 0 0; font-size: .875rem; line-height: 1.65;
+  color: rgba(251, 246, 239, .78);
+}
+.stmark { font-size: 1rem; line-height: 1.45; color: rgba(251, 246, 239, .5); }
+
+.stcheck.st--yes { background: rgba(94, 144, 112, .18); border-left-color: var(--sage); }
+.stcheck.st--yes .stmark { color: var(--sage); }
+.stcheck.st--part { background: rgba(232, 165, 33, .16); border-left-color: var(--sun); }
+.stcheck.st--part .stmark { color: var(--sun); }
+.stcheck.st--no { background: rgba(221, 84, 48, .16); border-left-color: var(--coral); }
+.stcheck.st--no .stmark { color: var(--apricot); }
+
+.stwipe {
+  margin: 1.1rem 0 0;
+  font-size: .75rem; letter-spacing: .04em;
+  color: rgba(251, 246, 239, .4);
+}
+
+@media (max-width: 520px) {
+  .stbox { padding: 1.1rem 1rem 1.2rem; }
+  .rcrow { padding: 1rem 1rem 1.15rem; }
+}
+
+/* the check heading is a block; the inline <b> inside its body copy is not
+   (same trap as .sortrow__v — a display:block <b> mid-sentence orphans a line) */
+.stcheck p b { display: inline; }

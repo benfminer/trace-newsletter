@@ -2194,3 +2194,395 @@ section[id] { scroll-margin-top: 3.75rem; }
    better as a dashed variant of the same button than as a rule drawn above it;
    border-style only, so the pressed state keeps its own colour. */
 .mfrow .seg--stack button:last-child { border-style: dashed; }
+
+
+/* --------------------------------------------------------------------------
+   MOVE ONE UP (Issue 10) — the 14A/14B/14C ladder run as a caseload rather
+   than as a single student. Five landing places, two tracks (education and
+   employment), a stepper on every rung and a promote button on every rung but
+   the top. The four-step ramp is the same sequence Issue 09 uses, read here as
+   height: clay = counted in none of the three, gold = inside 14C only, indigo
+   = 14B, mint = 14A. The teaching happens in the promotion readout, which
+   names which of the three rates actually moved — a promotion inside 14C
+   leaves 14C flat and lifts 14B, which is the whole reason to read it as a
+   ladder instead of a gate.
+   -------------------------------------------------------------------------- */
+
+.ladder { display: grid; gap: 0; }
+
+.rung {
+  border-top: 2px solid rgba(244,241,233,.16);
+  padding: 1rem 0 1.15rem;
+  display: grid; gap: .5rem;
+}
+.rung.is-out { border-top-color: #E8734C; }
+.rung.is-oth { border-top-color: #D8A63A; }
+.rung.is-ce  { border-top-color: #8C93F2; }
+.rung.is-he  { border-top-color: var(--mint); }
+
+.rung__tag {
+  font-size: .5625rem; font-weight: 700; letter-spacing: .18em;
+  text-transform: uppercase; color: rgba(244,241,233,.42);
+}
+.rung.is-out .rung__tag { color: #E8734C; }
+.rung.is-oth .rung__tag { color: #D8A63A; }
+.rung.is-ce  .rung__tag { color: #8C93F2; }
+.rung.is-he  .rung__tag { color: var(--mint); }
+
+.rung__top { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
+.rung__label { font-family: var(--display); font-size: 1.0625rem; font-weight: 600; color: var(--paper); }
+.rung__n {
+  font-family: var(--display); font-size: 1.9rem; line-height: 1;
+  font-weight: 650; letter-spacing: -.03em; color: var(--paper);
+}
+.rung__d { margin: 0; font-size: .875rem; line-height: 1.55; color: rgba(244,241,233,.6); }
+
+.rung__acts { display: flex; flex-wrap: wrap; gap: .4rem; align-items: center; }
+.rung__acts button {
+  font: inherit; font-size: .75rem; line-height: 1.3;
+  padding: .34rem .7rem; cursor: pointer; border-radius: 0;
+  background: transparent; color: rgba(244,241,233,.72);
+  border: 1px solid rgba(244,241,233,.22);
+  transition: border-color .18s var(--ease), color .18s var(--ease);
+}
+.rung__acts button:hover:enabled { border-color: var(--mint); color: var(--paper); }
+.rung__acts button:disabled { opacity: .28; cursor: not-allowed; }
+.rung__acts .stepper { display: inline-flex; gap: .25rem; margin-right: .4rem; }
+.rung__acts .stepper button { min-width: 2rem; text-align: center; }
+.rung__acts button.up { border-color: rgba(244,241,233,.42); color: var(--paper); }
+
+.ladbar {
+  display: flex; width: 100%; height: 16px;
+  margin: .5rem 0 1.15rem; background: rgba(255,255,255,.06);
+}
+.ladbar span { display: block; height: 100%; transition: width .45s var(--ease); }
+.ladbar .lb-he  { background: var(--mint); }
+.ladbar .lb-ce  { background: #8C93F2; }
+.ladbar .lb-oth { background: #D8A63A; }
+.ladbar .lb-out { background: #E8734C; }
+
+.rates { list-style: none; margin: 0 0 1.1rem; padding: 0; display: grid; gap: .75rem; }
+.rates li { display: grid; grid-template-columns: 3.2rem 1fr 3.4rem; gap: .7rem; align-items: center; }
+.rates .rk { font-size: .6875rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+.rates .rbar { display: block; height: 8px; background: rgba(255,255,255,.08); }
+.rates .rfill { display: block; height: 100%; width: 0; transition: width .45s var(--ease); }
+.rates .rv { font-family: var(--display); font-size: 1.05rem; font-weight: 650; text-align: right; }
+.rates li.r-a .rk, .rates li.r-a .rv { color: var(--mint); }
+.rates li.r-a .rfill { background: var(--mint); }
+.rates li.r-b .rk, .rates li.r-b .rv { color: #8C93F2; }
+.rates li.r-b .rfill { background: #8C93F2; }
+.rates li.r-c .rk, .rates li.r-c .rv { color: #D8A63A; }
+.rates li.r-c .rfill { background: #D8A63A; }
+
+.bands { display: grid; gap: .65rem; margin: 0 0 1rem; }
+.band { border-left: 3px solid rgba(244,241,233,.2); padding: .5rem 0 .5rem .8rem; }
+.band--gap { border-left-color: #D8A63A; }
+.band--out { border-left-color: #E8734C; }
+.band b { display: block; font-size: .8125rem; color: var(--paper); margin-bottom: .15rem; }
+.band p { margin: 0; font-size: .85rem; line-height: 1.5; color: rgba(244,241,233,.65); }
+
+.movelog { border-top: 1px solid rgba(244,241,233,.16); margin-top: 1.1rem; padding-top: 1.1rem; }
+.movelog__t {
+  font-size: .5625rem; font-weight: 700; letter-spacing: .18em;
+  text-transform: uppercase; color: var(--mint); margin: 0 0 .55rem;
+}
+.movelog p { margin: 0 0 .65rem; font-size: .9rem; line-height: 1.55; }
+.movelog p:last-child { margin-bottom: 0; }
+.movelog .flat { color: rgba(244,241,233,.5); }
+
+
+/* --------------------------------------------------------------------------
+   SUPPLEMENT to MOVE ONE UP (Issue 10) — collision reset.
+   `.ladder` / `.rung` / `.rung--top|mid|low` were already taken by the Week 3
+   "Evidence ladder" block above (line ~1050), which paints a soft paper
+   background, a left rule, and a two-column grid, and — the load-bearing one —
+   carries a `.rung span { font-size:.875rem; color:var(--muted) }` rule whose
+   specificity (0,1,1) beats the single-class `.rung__tag` / `.rung__label` /
+   `.rung__n` rules in the Issue 10 block. Left alone, the caseload ladder
+   renders as pale text on a pale card inside a dark module. Everything below
+   is scoped to `.ladder` so the Week 3 page is untouched.
+   -------------------------------------------------------------------------- */
+
+.ladder .rung {
+  background: transparent;
+  border-left: 0;
+  grid-template-columns: none;
+  align-items: stretch;
+  padding: 1rem 0 1.15rem;
+}
+.ladder .rung__tag {
+  font-size: .5625rem; letter-spacing: .18em;
+  color: rgba(244,241,233,.42);
+}
+.ladder .rung__label { font-size: 1.0625rem; color: var(--paper); }
+.ladder .rung__n { font-size: 1.9rem; color: var(--paper); }
+.ladder .rung__d { color: rgba(244,241,233,.6); }
+
+
+/* --------------------------------------------------------------------------
+   RATE SIX, ARGUE ABOUT ONE (Issue 10, Week 3) — the PISA rating step in
+   miniature. Every class here is prefixed `w10c-` on purpose: `.ladder`,
+   `.rung` and `.rung--*` were already taken twice over (Week 3's evidence
+   ladder at ~line 1050 and Issue 10's caseload ladder), and the sibling
+   collisions cost real time. Rows reuse .sortrow / .spinrow__k / .spinrow__q /
+   .seg--stack / .sortrow__v; the tally reuses .buckets and the six predictors
+   reuse .roster. New here: a two-column pair of segmented controls (you /
+   a colleague), a four-cell spread strip whose filled span IS the finding, a
+   single-choice pick button, and the goal skeleton it emits.
+
+   The three states are NOT a good/bad ramp. "Agreed" is not a win and
+   "two rungs apart" is not a failure — a gap is the information the
+   individual-rating step exists to produce, so it reads warm-amber, not red.
+   -------------------------------------------------------------------------- */
+
+.w10c-tier {
+  display: block; margin-bottom: .3rem;
+  font-size: .5625rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
+  color: rgba(244,241,233,.42);
+}
+.w10c-tier.is-t3 { color: var(--mint); }
+.w10c-tier.is-t2 { color: rgba(143,231,184,.62); }
+.w10c-tier.is-t1 { color: #D8A63A; }
+
+/* predictor names are phrases, not two-word labels */
+.w10c-row .spinrow__k { text-transform: none; letter-spacing: 0; }
+.w10c-row .spinrow__k b { font-size: 1rem; line-height: 1.35; color: var(--paper); margin-right: 0; }
+
+/* two raters, side by side once there is room for them */
+.w10c-pair { display: grid; gap: .9rem; margin-bottom: .85rem; }
+@media (min-width: 560px) { .w10c-pair { grid-template-columns: 1fr 1fr; gap: 1rem; } }
+.w10c-leg {
+  display: block; margin-bottom: .4rem;
+  font-size: .5625rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase;
+  color: rgba(244,241,233,.45);
+}
+.w10c-pair .seg--stack button { font-size: .75rem; padding: .4rem .55rem; }
+
+/* the spread strip — four cells, the span between the two ratings filled */
+.w10c-spread {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+  align-items: stretch;
+  margin: 0 0 .85rem;
+}
+.w10c-spread > span {
+  height: 1.4rem;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(244,241,233,.07);
+  font-size: .5rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+  color: transparent;
+  transition: background-color .35s var(--ease), color .35s var(--ease);
+}
+.w10c-spread > span.is-in { background: rgba(244,241,233,.16); }
+.w10c-spread > span.is-you,
+.w10c-spread > span.is-them,
+.w10c-spread > span.is-both { color: var(--ink); }
+.w10c-spread > b {
+  grid-column: 1 / -1;
+  margin-top: .35rem;
+  font-size: .5625rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase;
+  color: rgba(244,241,233,.5);
+}
+
+.w10c-spread.is-agree > span.is-both { background: var(--mint); }
+.w10c-spread.is-agree > b { color: var(--mint); }
+.w10c-spread.is-near > span.is-you,
+.w10c-spread.is-near > span.is-them { background: rgba(143,231,184,.7); }
+.w10c-spread.is-near > b { color: rgba(143,231,184,.8); }
+.w10c-spread.is-far > span.is-you,
+.w10c-spread.is-far > span.is-them { background: #D8A63A; }
+.w10c-spread.is-far > b { color: #D8A63A; }
+
+/* three states, three rules — a gap is a finding, not a fault */
+.sortrow.is-agree { border-top-color: var(--mint); }
+.sortrow.is-near  { border-top-color: rgba(143,231,184,.55); }
+.sortrow.is-far   { border-top-color: #D8A63A; }
+.sortrow__v.is-agree { border-left-color: var(--mint); }
+.sortrow__v.is-near  { border-left-color: rgba(143,231,184,.55); }
+.sortrow__v.is-far   { border-left-color: #D8A63A; }
+
+.buckets li.is-agree .bfill { background: var(--mint); }
+.buckets li.is-near  .bfill { background: rgba(143,231,184,.55); }
+.buckets li.is-far   .bfill { background: #D8A63A; }
+
+/* the pick — single choice across all six rows */
+.w10c-pick {
+  margin-top: .75rem;
+  display: inline-block;
+  border: 1px dashed rgba(244,241,233,.3);
+  background: transparent;
+  color: rgba(244,241,233,.68);
+  font-family: inherit;
+  font-size: .6875rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+  padding: .45rem .8rem;
+  cursor: pointer;
+  transition: border-color .3s var(--ease), color .3s var(--ease), background-color .3s var(--ease);
+}
+.w10c-pick:hover { border-color: var(--mint); color: var(--paper); }
+.w10c-pick[aria-pressed=true] {
+  border-style: solid;
+  border-color: var(--mint);
+  background: var(--mint);
+  color: var(--ink);
+}
+.w10c-row.is-picked { border-top-width: 2px; }
+.roster li.is-picked { border-color: var(--mint); }
+.roster li.is-picked .rk { color: var(--mint); font-weight: 650; }
+
+/* the goal skeleton the pick emits */
+.w10c-goal:empty { display: none; }
+.w10c-goal {
+  margin: 1.4rem 0 0;
+  padding: 1.1rem 1.15rem;
+  border: 1px solid rgba(143,231,184,.42);
+}
+.w10c-goal__k {
+  margin: 0 0 .3rem;
+  font-size: .5625rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--mint);
+}
+.w10c-goal h4 {
+  margin: 0 0 .6rem;
+  font-family: var(--display); font-size: 1.1rem; font-weight: 600; line-height: 1.2;
+  color: var(--paper);
+}
+.w10c-goal__g {
+  margin: 0 0 .7rem !important;
+  font-size: .9375rem; line-height: 1.6;
+  color: rgba(244,241,233,.88) !important;
+}
+.w10c-goal__f {
+  margin: 0 !important;
+  padding-top: .7rem;
+  border-top: 1px solid rgba(244,241,233,.14);
+  font-size: .8125rem !important; line-height: 1.55;
+  color: rgba(244,241,233,.55) !important;
+}
+
+
+/* --------------------------------------------------------------------------
+   SET THE TABLE (Issue 10, Week 2) — build the dataset, watch the read change.
+   Every class here is prefixed `.w10b-` on purpose. `.ladder` / `.rung` were
+   claimed twice over already (Week 3 evidence ladder ~1050, Issue 10 caseload
+   ladder above); nothing in this block shares a name with anything else in the
+   stylesheet. Controls reuse `.seg`; the readout reuses `.finds` / `.moves` /
+   `.ratio`, which are palette-neutral inside `.module`.
+   -------------------------------------------------------------------------- */
+
+.w10b-ctls { display: grid; gap: 1.15rem; margin: 0 0 1.5rem; }
+.w10b-ctl > b {
+  display: block;
+  font-size: .5625rem; font-weight: 700; letter-spacing: .18em;
+  text-transform: uppercase; color: var(--mint);
+  margin: 0 0 .5rem;
+}
+
+.w10b-wrap {
+  overflow-x: auto;
+  border-top: 1px solid rgba(244,241,233,.16);
+  padding-top: 1.15rem;
+}
+.w10b-empty {
+  margin: 0; font-size: .9rem; line-height: 1.6;
+  color: rgba(244,241,233,.55);
+}
+
+.w10b-tbl { border-collapse: collapse; width: 100%; min-width: 21rem; }
+.w10b-cap {
+  caption-side: top; text-align: left;
+  font-size: .5625rem; font-weight: 700; letter-spacing: .18em;
+  text-transform: uppercase; color: rgba(244,241,233,.4);
+  padding: 0 0 .7rem;
+}
+.w10b-tbl th, .w10b-tbl td {
+  text-align: left; vertical-align: top;
+  padding: .7rem .8rem .7rem 0;
+  border-bottom: 1px solid rgba(244,241,233,.1);
+}
+.w10b-tbl td:last-child, .w10b-tbl th:last-child { padding-right: 0; }
+.w10b-tbl thead th {
+  font-size: .5625rem; font-weight: 700; letter-spacing: .16em;
+  text-transform: uppercase; color: rgba(244,241,233,.5);
+  padding-bottom: .5rem;
+}
+.w10b-tbl tbody th {
+  font-size: .8125rem; font-weight: 650; color: var(--paper);
+  width: 10.5rem; padding-right: 1.1rem;
+}
+.w10b-tbl tbody th span {
+  display: block; margin-top: .2rem;
+  font-size: .625rem; font-weight: 400; line-height: 1.4;
+  color: rgba(244,241,233,.45);
+}
+
+.w10b-v {
+  display: block;
+  font-family: var(--display); font-size: 1.15rem; line-height: 1.25;
+  font-weight: 650; letter-spacing: -.01em; color: var(--paper);
+  white-space: nowrap;
+}
+.w10b-v + .w10b-v { margin-top: .15rem; }
+.w10b-v .w10b-k {
+  display: inline-block; width: 2.4rem;
+  font-family: var(--sans); font-size: .5625rem; font-weight: 700;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: rgba(244,241,233,.45);
+  vertical-align: middle;
+}
+.w10b-v.is-alarm { color: #E8734C; }
+
+
+/* --------------------------------------------------------------------------
+   WHO ANSWERED THE PHONE (Issue 10, Week 1) — one leaver, three facts, one
+   respondent. Rows reuse .spinrow / .spinrow__k / .spinrow__q / .seg /
+   .seg--stack / .seg--sm; only the row chrome and the three-state knowledge
+   list are new here. Everything is prefixed `.w10a-` on purpose: `.ladder`,
+   `.rung` and `.rung--top|mid|low` are already claimed twice in this
+   stylesheet (the Week 3 evidence ladder and the Issue 10 "Move one up"
+   module), so this block borrows none of those names.
+   -------------------------------------------------------------------------- */
+
+.w10a-row { position: relative; }
+.w10a-tag {
+  display: inline-block;
+  font-size: .5625rem; font-weight: 700; letter-spacing: .18em;
+  text-transform: uppercase; color: rgba(244,241,233,.35);
+  margin-bottom: .4rem;
+}
+.w10a-row.is-set .w10a-tag { color: var(--mint); }
+.w10a-picked {
+  margin: .6rem 0 0; font-size: .8125rem; line-height: 1.5;
+  color: rgba(244,241,233,.62);
+  border-left: 2px solid var(--mint); padding-left: .65rem;
+}
+.w10a-row--moot { opacity: .45; }
+.w10a-row--moot .w10a-tag { color: rgba(244,241,233,.3); }
+
+.w10a-know { display: grid; gap: .45rem; margin: 1.35rem 0 0; padding: 0; list-style: none; }
+.w10a-know li {
+  display: grid; grid-template-columns: 1.5rem 1fr auto; gap: .6rem;
+  align-items: center;
+  font-size: .84rem; line-height: 1.4;
+  padding: .55rem .7rem;
+  background: rgba(255,255,255,.04);
+  border-left: 3px solid rgba(244,241,233,.18);
+  transition: border-color .25s, background-color .25s;
+}
+.w10a-know li .mk { font-weight: 700; text-align: center; color: rgba(244,241,233,.4); }
+.w10a-know li .amt {
+  font-size: .625rem; letter-spacing: .1em; text-transform: uppercase;
+  color: rgba(244,241,233,.42); white-space: nowrap;
+}
+.w10a-know li.is-first { border-left-color: var(--mint); }
+.w10a-know li.is-first .mk, .w10a-know li.is-first .amt { color: var(--mint); }
+.w10a-know li.is-est { border-left-color: #D8A63A; }
+.w10a-know li.is-est .mk, .w10a-know li.is-est .amt { color: #D8A63A; }
+.w10a-know li.is-no { border-left-color: #E8734C; }
+.w10a-know li.is-no .mk, .w10a-know li.is-no .amt { color: #E8734C; }
+.w10a-know li.is-idle { opacity: .55; }
+
+@media (max-width: 520px) {
+  .w10a-know li { grid-template-columns: 1.3rem 1fr; }
+  .w10a-know li .amt { grid-column: 2; }
+}
