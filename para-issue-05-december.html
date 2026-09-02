@@ -219,7 +219,7 @@
         <div class="fadeout">
           <p class="kicker kicker--sun" id="c-n">Moment 1 of 6</p>
           <p class="fadeout__t" id="c-t"></p>
-          <p id="c-b" style="font-size:.96875rem;line-height:1.6;color:rgba(251,246,239,.78);margin:0 0 1.1rem;"></p>
+          <p id="c-b" style="font-size:.96875rem;line-height:1.6;color:rgba(255,255,255,.78);margin:0 0 1.1rem;"></p>
 
           <div class="tripbtns" id="c-choices"></div>
 
@@ -233,7 +233,7 @@
           </div>
         </div>
 
-        <p style="font-size:.8125rem;line-height:1.6;color:rgba(251,246,239,.45);margin-top:1.25rem;">
+        <p style="font-size:.8125rem;line-height:1.6;color:rgba(255,255,255,.45);margin-top:1.25rem;">
           Sam is made up, and the curve is a drawing rather than a measurement &mdash;
           nobody has a meter for this. The shape is the point: up is fast, down
           is slow, and the cheapest moment to act is the first one.
@@ -566,7 +566,7 @@
     }).join(' '));
 
     els.pts.innerHTML = series.map(function (v, n) {
-      var fill = v >= 70 ? '#DD5430' : (v >= 40 ? '#E8A521' : '#5E9070');
+      var fill = v >= 70 ? '#E14E28' : (v >= 40 ? '#D19A1E' : '#2E9E6B');
       return '<circle class="pt" cx="' + xOf(n) + '" cy="' + yOf(v) +
         '" r="5" fill="' + fill + '" />';
     }).join('');
@@ -587,7 +587,7 @@
       var cls = e.k === 'up' ? 'prompted' : (e.k === 'down' ? 'indep' : '');
       return '<li class="feed__item is-in ' + cls + '"><span class="feed__t">' +
         e.feed[0] + '</span><span>' + e.feed[1] +
-        '<br /><span style="color:rgba(251,246,239,.5);font-size:.8125rem;">' +
+        '<br /><span style="color:rgba(255,255,255,.5);font-size:.8125rem;">' +
         e.note + '</span></span></li>';
     }).join('');
   }

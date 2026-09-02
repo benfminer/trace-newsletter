@@ -6,7 +6,7 @@
    Transition Matters and Side by Side — the accent falls back per publication.
    ========================================================================== */
 
-:root { --gloss-accent: var(--clay, var(--coral, #C24C2A)); }
+:root { --gloss-accent: var(--clay, var(--coral, #E14E28)); }
 
 /* --- the marked term ------------------------------------------------------
    A <button>, so it must be reset back to looking like running text. The
@@ -77,7 +77,7 @@
   font-size: .82rem;
   font-weight: 650;
   letter-spacing: .01em;
-  color: var(--mint, var(--apricot, #8FE7B8));
+  color: var(--accent-field, #FF8A6B);
 }
 .gloss-pop__d {
   margin: 0;
