@@ -63,11 +63,40 @@
       </svg>
     </div>
 
-    <a class="hero__scroll" href="#tm"><span class="arrow">&darr;</span> This month</a>
+    <a class="cta" href="#tm" data-reveal data-delay="300">
+      <span class="cta__badge" aria-hidden="true">&rarr;</span>
+      See all twenty issues
+    </a>
   </div>
 </header>
 
 <main>
+
+<!-- ====================================================== STAT STRIP ==== -->
+<section class="countbar" aria-label="What is here">
+  <div class="countbar__in">
+    <div class="countbar__item" data-reveal>
+      <span class="countbar__n">20</span>
+      <span class="countbar__l">Issues</span>
+      <span class="countbar__d">Two newsletters, ten months each, August through May.</span>
+    </div>
+    <div class="countbar__item" data-reveal data-delay="60">
+      <span class="countbar__n">23</span>
+      <span class="countbar__l">Interactive tools</span>
+      <span class="countbar__d">Built into the issues and usable on a phone &mdash; not described, run.</span>
+    </div>
+    <div class="countbar__item" data-reveal data-delay="120">
+      <span class="countbar__n">70</span>
+      <span class="countbar__l">Plain-language definitions</span>
+      <span class="countbar__d">Hover or tap any term you do not know. The articles stay the length they were.</span>
+    </div>
+    <div class="countbar__item" data-reveal data-delay="180">
+      <span class="countbar__n">0</span>
+      <span class="countbar__l">Sign-ups</span>
+      <span class="countbar__d">No account, no tracking, nothing sent anywhere. Trackers save to your own device.</span>
+    </div>
+  </div>
+</section>
 
 <!-- ============================================== TRANSITION MATTERS ==== -->
 <section id="tm" class="measure" style="padding-top:clamp(3.5rem,8vw,5.5rem);">
@@ -80,8 +109,8 @@
   </p>
 </section>
 
-<div class="hub">
-  <div class="measure" style="padding:0;">
+<div class="hub hub--grid">
+  <div class="hubgrid">
     <a class="hubcard" data-reveal href="issue-10-may.html">
       <p class="kicker">Issue 10 &middot; May &middot; 14 min</p>
       <h2>A ladder,<br />not a gate</h2>
@@ -209,8 +238,8 @@
   </p>
 </section>
 
-<div class="hub">
-  <div class="measure" style="padding:0;">
+<div class="hub hub--grid">
+  <div class="hubgrid">
     <a class="hubcard" data-reveal href="para-issue-10-may.html">
       <p class="kicker">Issue 10 &middot; May &middot; 14 min &middot; the last one</p>
       <h2>The fall para&rsquo;s<br />first week</h2>
