@@ -1,0 +1,412 @@
+@import url('https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300..800;1,400..700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+/* ==========================================================================
+   TRANSITION MATTERS — warm variant (2026-09-09)
+
+   A per-issue overlay, loaded AFTER tm.css and glossary.css. It does not
+   replace them: tm.css still supplies every layout rule, and this file only
+   remaps the palette, the type, and the handful of surfaces that tm.css
+   builds dark.
+
+   Why: the hustlejar scheme puts THREE dark bands on one page — the hero,
+   the interactive module, and the do-this-month band. The page reads as a
+   dark site with cream gaps. The wellness letter this borrows from is the
+   opposite shape: ONE dark moment (a dawn-gradient hero with the sun coming
+   up into it) and then cream paper and white cards the rest of the way down.
+   That single-dark-moment rule is the whole idea here. If you add a band,
+   make it light.
+
+   Palette is lifted from trace-wellness-september:
+     ground #FCFAF7 · surface #FFFFFF · line #E3DCD1
+     ink    #14203A · muted   #5D6B84
+     tide   #0F7E77 · sun     #F2A413 · coral #EE5D4C
+   Type: Fraunces (display + accent italic), Public Sans (body),
+   IBM Plex Mono (kickers, labels, topbar).
+
+   Scoped by nothing on purpose — the file is only linked from the issue that
+   uses it, so no body class is needed and the markup stays untouched.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Token remap.
+   These are tm.css's own token names, re-pointed. Keeping the names means
+   every rule in tm.css AND glossary.css follows along without being restated.
+   -------------------------------------------------------------------------- */
+:root {
+  /* ink & paper. --ink is TEXT (tm.css uses it ~45x as color); --paper is the
+     page ground AND the on-dark text colour in the hero, which is why it stays
+     a cream rather than becoming white. */
+  --ink:        #14203A;
+  --ink-2:      #1D2B48;
+  --ink-3:      #33415E;
+  --ink-line:   #CFC5B6;
+  --paper:      #FCFAF7;
+  --paper-2:    #F4EFE8;
+  --paper-3:    #F7F3ED;
+  --rule:       #E3DCD1;
+  --body:       #3C4A63;
+  --muted:      #5D6B84;
+
+  /* the accent is teal now, not electric blue. --field is what `a` reads. */
+  --field:      #0F7E77;
+  --field-2:    #12958C;
+  --bg-blue:    #0F7E77;
+  --bg-navy:    #14203A;
+  --field-deep: #0A5C57;
+
+  /* signals. --clay drives kickers, markers, .steps numbers and the glossary
+     underline; it is the warm red of the reference, not the teal, so that
+     teal stays reserved for "this is the answer" states. */
+  --clay:       #C7402F;
+  --clay-deep:  #A33221;
+  --clay-soft:  #FCE3DF;
+  --indigo:     #0F7E77;
+  --indigo-deep:#0A5C57;
+  --indigo-soft:#DCEFEC;
+  --ochre:      #C07A0A;
+  --ochre-deep: #96600A;
+  --ochre-soft: #FDF0D8;
+  --stone:      #7C8AA3;
+  --stone-soft: #ECEDF1;
+
+  --accent:       #0F7E77;
+  --accent-field: #F9C55B;   /* sits on the dark hero — amber, never teal */
+  --coral:        #EE5D4C;
+  --coral-deep:   #C7402F;
+  --coral-soft:   #FCE3DF;
+  --violet:       #7C8AA3;
+  --sun:          #F2A413;
+
+  --mint:       #0F7E77;
+
+  /* wellness-specific additions this file uses directly */
+  --ground:     #FCFAF7;
+  --tide:       #0F7E77;
+  --tide-soft:  #DCEFEC;
+  --tide-line:  #BFE0DA;
+  --tide-ink:   #0A5C57;
+  --surface:    #FFFFFF;
+  --surface-2:  #F7F3ED;
+  --line-strong:#CFC5B6;
+  --shadow:     0 1px 2px rgba(20,32,58,.05), 0 10px 30px -18px rgba(20,32,58,.35);
+  --shadow-lift:0 2px 4px rgba(20,32,58,.06), 0 22px 48px -22px rgba(20,32,58,.45);
+
+  /* type + shape */
+  --display:    'Fraunces', 'Iowan Old Style', Georgia, 'Times New Roman', serif;
+  --serif:      'Fraunces', 'Iowan Old Style', Georgia, 'Times New Roman', serif;
+  --sans:       'Public Sans', -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --mono:       'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --r:          14px;
+  --r-lg:       20px;
+}
+
+body { background: var(--ground, var(--paper)); font-size: 1.0625rem; }
+
+::selection { background: var(--tide-soft); color: var(--ink); }
+
+/* Fraunces is a variable display serif — pin the axes so headlines don't
+   inherit Poppins-era weights that render as a different face. */
+h1, h2, h3, h4 {
+  font-weight: 600;
+  font-variation-settings: 'SOFT' 0, 'WONK' 0;
+  letter-spacing: -0.012em;
+  text-wrap: balance;
+}
+.display { font-weight: 600; letter-spacing: -0.028em; }
+
+/* kickers, markers and the topbar move to mono — that is what carries the
+   reference's editorial feel more than any single colour does. */
+.kicker,
+.marker__n, .marker__t,
+.assign__label,
+.topbar__in,
+.hero__meta, .hero__scroll,
+.spinrow__k, .chip, .foot__legal {
+  font-family: var(--mono);
+  font-weight: 500;
+}
+.kicker { letter-spacing: 0.16em; }
+.marker__t { color: var(--ink); letter-spacing: 0.16em; }
+.kicker--mint { color: var(--tide-ink); }
+.kicker--pale { color: var(--muted); }
+
+a { border-bottom-color: rgba(15, 126, 119, .32); }
+a:hover { border-color: var(--tide); background: var(--tide-soft); }
+
+.dropcap::first-letter { color: var(--tide); font-weight: 600; }
+
+.lede { color: var(--ink-3); }
+.standfirst { color: var(--ink); }
+
+.marker { border-top-color: var(--line-strong); }
+.note { border-top-color: var(--line-strong); }
+.pull { border-left-color: var(--coral); }
+.pull p { font-weight: 500; }
+
+/* --------------------------------------------------------------------------
+   2. Topbar — cream glass rather than a slab of paper-3.
+   -------------------------------------------------------------------------- */
+.topbar {
+  background: rgba(252, 250, 247, .92);
+  -webkit-backdrop-filter: saturate(1.6) blur(10px);
+  backdrop-filter: saturate(1.6) blur(10px);
+}
+.topbar__pub { color: var(--tide-ink); }
+.topbar__pub:hover { color: var(--coral-deep); }
+.topbar__where { color: rgba(20, 32, 58, .5); }
+.topbar__all { color: rgba(20, 32, 58, .62); }
+.topbar__all:hover { color: var(--tide); }
+.topbar__rule { background: rgba(20, 32, 58, .09); }
+.topbar__rule .progress__bar { background: var(--coral); }
+
+/* --------------------------------------------------------------------------
+   3. The hero — the one dark moment on the page.
+   A dawn gradient with the sun rising into it from below. The sun is a
+   ::before so no markup changes; tm.css's grain ::after still sits on top.
+   -------------------------------------------------------------------------- */
+.hero {
+  background: linear-gradient(180deg,
+    #0A1226   0%,
+    #16233F  32%,
+    #3E3355  55%,
+    #8E4E50  76%,
+    #D07C3C  92%,
+    #E9A24E 100%);
+  color: #FFEEDC;
+  isolation: isolate;
+  padding-bottom: clamp(3.5rem, 9vh, 5.5rem);
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  left: 50%; bottom: -12%;
+  width: min(56vw, 460px); aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 50%,
+    #FFE9A8 0%, #F9C55B 40%, #F2A413 62%, rgba(238, 93, 76, 0) 72%);
+  transform: translate(-50%, 40%);
+  z-index: 0;
+  pointer-events: none;
+  animation: tm-rise 2.2s cubic-bezier(.16, .8, .3, 1) both;
+}
+@keyframes tm-rise {
+  from { transform: translate(-50%, 92%); opacity: 0; }
+  to   { transform: translate(-50%, 40%); opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero::before { animation: none; }
+}
+
+.hero .display { color: #FFF6EA; }
+.hero .display .accent { color: var(--accent-field); font-weight: 600; }
+/* the stroked numeral sits over the mid-gradient, which is lighter than the
+   navy it was drawn for — it needs more opacity here, not less */
+.hero__ghost { -webkit-text-stroke: 1.5px rgba(255, 226, 190, .2); }
+.hero__meta { color: rgba(255, 238, 220, .62); }
+.hero__meta .sep { color: rgba(249, 197, 91, .6); }
+.hero__sub {
+  font-family: var(--sans);
+  color: rgba(255, 240, 224, .9);
+  max-width: 32rem;
+}
+.hero__sub strong, .hero__sub b { color: #FFF6EA; }
+/* The sun rises directly behind this cue, so amber-on-amber disappears.
+   Give it its own dark ground rather than moving the sun — the centred sun is
+   the whole point of the composition. */
+.hero__scroll {
+  color: rgba(255, 232, 205, .92);
+  background: rgba(10, 18, 38, .55);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  padding: 0.55rem 1.1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 226, 190, .22);
+}
+.hero__scroll:hover {
+  color: #FFF6EA;
+  background: rgba(10, 18, 38, .72);
+  border-color: var(--accent-field);
+}
+
+/* the runway SVG already reads --accent-field, so it turns amber on its own;
+   only the neutral strokes need warming off pure white. */
+.runway .track { stroke: rgba(255, 238, 220, .26); }
+.runway .tick  { stroke: rgba(255, 238, 220, .34); }
+.runway text   { fill: rgba(255, 238, 220, .68); font-family: var(--mono); }
+
+/* the rail floats over the hero, so its dark state has to go amber too */
+.rail.on-dark a.is-active .dot { background: var(--accent-field); border-color: var(--accent-field); }
+.rail.on-dark a.is-active { color: #FFF6EA; }
+
+/* --------------------------------------------------------------------------
+   4. .panel — was a navy inset. Now the reference's tinted callout card.
+   -------------------------------------------------------------------------- */
+.panel {
+  background: linear-gradient(150deg, var(--tide-soft), var(--surface) 75%);
+  border: 1px solid var(--tide-line);
+  border-left: 4px solid var(--tide);
+  border-radius: var(--r);
+  color: var(--body);
+  box-shadow: var(--shadow);
+}
+.panel .kicker { color: var(--tide-ink); }
+.panel strong { color: var(--ink); }
+.panel .hot { color: var(--coral-deep); }
+.panel a { color: var(--tide-ink); border-color: rgba(10, 92, 87, .38); }
+.panel a:hover { background: rgba(15, 126, 119, .1); }
+
+/* --------------------------------------------------------------------------
+   5. Editorial furniture — cards get the reference's radius + soft shadow.
+   -------------------------------------------------------------------------- */
+.tiers { gap: 0.6rem; }
+.tier { border-radius: 12px; overflow: hidden; }
+.tier__tag { font-family: var(--display); font-weight: 600; }
+
+.resource {
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--sun);
+  border-radius: var(--r);
+  box-shadow: var(--shadow);
+  background: var(--surface);
+}
+.chip { background: var(--surface-2); color: var(--ink); font-weight: 500; }
+.chip--live { background: var(--tide); color: #fff; }
+
+.steps .num { color: var(--tide); border-top-color: var(--tide); }
+.ticks > li::before { background: var(--tide); }
+
+.glosshint { border-top-color: var(--line); }
+
+/* --------------------------------------------------------------------------
+   6. The interactive module — was navy. Now cream paper with white cards.
+   Every rule below exists because tm.css assumed a dark ground here.
+   -------------------------------------------------------------------------- */
+.module {
+  background: var(--paper-2);
+  color: var(--body);
+  border-block: 1px solid var(--line);
+}
+.module__head .kicker { color: var(--clay); }
+.module__head h2 { color: var(--ink); }
+.module__head p { color: var(--muted); }
+.module__foot { color: var(--muted); }
+
+/* the four question rows */
+.spinrow { border-top-color: var(--line); }
+.spinrow__k { color: var(--muted); letter-spacing: 0.14em; }
+.spinrow__k b { font-family: var(--display); color: var(--tide); font-weight: 600; }
+.spinrow__q { color: var(--muted); }
+.spinnote { border-top-color: var(--line); color: var(--muted); }
+.spinnote b { color: var(--ink); }
+
+/* segmented buttons become white pills */
+.seg button {
+  background: var(--surface);
+  color: var(--body);
+  border-color: var(--line);
+  border-radius: 999px;
+}
+.seg button:hover {
+  border-color: var(--tide);
+  color: var(--tide-ink);
+  background: var(--tide-soft);
+}
+.seg button[aria-pressed=true] {
+  background: var(--tide);
+  border-color: var(--tide);
+  color: #fff;
+}
+.seg button:focus-visible { outline: 2px solid var(--tide); outline-offset: 2px; }
+
+/* the two goal cards */
+.goalcard {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--k, var(--stone));
+  border-radius: var(--r);
+  box-shadow: var(--shadow);
+  padding: 1.15rem 1.3rem;
+}
+.goalcard--bad  { --k: var(--coral); }
+.goalcard--good { --k: var(--tide); }
+.goalcard--bad .kicker { color: var(--coral-deep); }
+.goalcard__t { color: var(--ink); font-weight: 500; line-height: 1.4; }
+.goalcard--bad .goalcard__t { color: var(--muted); font-style: italic; }
+.goalcard__t b { color: var(--tide-ink); font-weight: 600; }
+.goalcard__n { color: var(--muted); }
+
+/* the where-to-look readout */
+.verdict {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--tide);
+  border-radius: var(--r);
+  box-shadow: var(--shadow);
+}
+.verdict__say { color: var(--body); }
+.verdict__say b { color: var(--ink); }
+.moves { border-top-color: var(--line); }
+.moves li::before { color: var(--tide); }
+
+/* --------------------------------------------------------------------------
+   7. The do-this-month band — was navy. Now the sunrise, flipped to paper.
+   -------------------------------------------------------------------------- */
+.assign {
+  background:
+    radial-gradient(ellipse 70% 120% at 12% 0%, rgba(242, 164, 19, .18), rgba(242, 164, 19, 0) 62%),
+    linear-gradient(158deg, #FDF1DA 0%, #FCE6DF 52%, #FCFAF7 100%);
+  color: var(--body);
+  border-block: 1px solid var(--line);
+}
+.assign__label {
+  background: var(--tide);
+  color: #fff;
+  border-radius: 999px;
+  letter-spacing: 0.18em;
+}
+.assign h2 { color: var(--ink); }
+.assign strong { color: var(--coral-deep); }
+.assign em { color: var(--ink); }
+.assign .ticks > li::before { background: var(--tide); }
+
+/* --------------------------------------------------------------------------
+   8. Footer — the four next-cards become real cards instead of grid cells.
+   -------------------------------------------------------------------------- */
+.foot { border-top-color: var(--line); }
+.foot__next {
+  background: transparent;
+  border: 0;
+  gap: 0.85rem;
+}
+.nextcard {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  box-shadow: var(--shadow);
+  transition: box-shadow .2s, transform .2s, border-color .2s;
+}
+.nextcard:hover {
+  background: var(--surface);
+  border-color: var(--tide-line);
+  box-shadow: var(--shadow-lift);
+  transform: translateY(-2px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .nextcard:hover { transform: none; }
+}
+.foot__legal { color: var(--muted); }
+
+/* --------------------------------------------------------------------------
+   9. Glossary — .panel / .assign / .module are light now, so undo the
+   lift-the-underline-to-white rules glossary.css applies inside them.
+   -------------------------------------------------------------------------- */
+.panel .term, .assign .term, .module .term {
+  border-bottom-color: currentColor;
+}
+.panel .term:hover, .assign .term:hover, .module .term:hover,
+.panel .term[aria-expanded="true"],
+.assign .term[aria-expanded="true"],
+.module .term[aria-expanded="true"] {
+  border-bottom-color: var(--gloss-accent);
+  background: color-mix(in srgb, var(--gloss-accent) 12%, transparent);
+}
